@@ -405,6 +405,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3a00725c8eb6450296a3dfa04b43704, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_MaxRotationX: 90
+  m_MaxRotationZ: 90
   m_RandomBounceFactor: 1
   m_AbsoluteMinLift: 0.2
   m_AbsoluteMaxLift: 5
@@ -1114,6 +1116,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3a00725c8eb6450296a3dfa04b43704, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_MaxRotationX: 90
+  m_MaxRotationZ: 90
   m_RandomBounceFactor: 1
   m_AbsoluteMinLift: 0.2
   m_AbsoluteMaxLift: 10

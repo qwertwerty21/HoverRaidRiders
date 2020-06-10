@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class Hoverboard : MonoBehaviour
 {
+  public float m_MaxRotationX = 90f;
+  public float m_MaxRotationZ = 90f;
   // additional force added to lift to create unstable effect
   [Range(0f, 5f)]
   public float m_RandomBounceFactor = 1f;
@@ -34,13 +36,14 @@ public class Hoverboard : MonoBehaviour
 
     // lower center of mass so we don't flip
     Vector3 centerOfMass = m_RigidBody.centerOfMass;
-    centerOfMass.y -= .5f;
+    centerOfMass.y -= 1f;
     m_RigidBody.centerOfMass = centerOfMass;
   }
 
   // Update is called once per frame
   private void FixedUpdate()
   {
+    Debug.Log("EulerAngles " + transform.eulerAngles);
     RaycastHit hit;
 
     foreach (GameObject point in m_HoverboardPoints)
@@ -77,4 +80,23 @@ public class Hoverboard : MonoBehaviour
       }
     }
   }
+  // private void LateUpdate()
+  // {
+  //   // eulerAngles is returning a value between 0 and 360, 
+  //   // so if > 180 we substract 180 so we can clamp correctly
+  //   float rotationX = transform.eulerAngles.x;
+  //   rotationX = rotationX > 180f ? rotationX - 360f : rotationX;
+  //   rotationX = Mathf.Clamp(rotationX, -m_MaxRotationX, m_MaxRotationX);
+
+  //   float rotationZ = transform.eulerAngles.z;
+  //   rotationZ = rotationZ > 180f ? rotationZ - 360f : rotationZ;
+  //   rotationZ = Mathf.Clamp(rotationZ, -m_MaxRotationZ, m_MaxRotationZ);
+
+
+  //   // Converts our numbers into euler angles
+  //   Quaternion rotation = Quaternion.Euler(rotationX, transform.eulerAngles.y, rotationZ);
+
+  //   // Sets our new rot
+  //   transform.rotation = rotation;
+  // }
 }
