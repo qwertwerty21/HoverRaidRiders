@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Hoverboard
   - HoverboardPoint
+  - HoverboardAccelPoint
   layers:
   - Default
   - TransparentFX
