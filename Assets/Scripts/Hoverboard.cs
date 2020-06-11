@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Hoverboard : MonoBehaviour
 {
+  public float m_SteerStabilityForce = 1f;
   public float m_MaxRotationX = 90f;
   public float m_MaxRotationZ = 90f;
   // additional force added to lift to create unstable effect
@@ -24,15 +25,32 @@ public class Hoverboard : MonoBehaviour
   public Rigidbody m_RigidBody;
   private GameObject[] m_HoverboardPoints;
 
-  public void Move(float horizontal, float vertical)
+  private GameObject m_HoverboardAccelPoint;
+
+  public void Move(float horizontal, float vertical, bool isDrifting)
   {
     m_RigidBody.AddForce(vertical * m_MoveForce * transform.forward);
     m_RigidBody.AddTorque(horizontal * m_TorqueForce * Vector3.up);
+    Debug.Log("IsDrifting" + isDrifting);
+    if (!isDrifting)
+    {
+      Vector3 worldVelocity = m_RigidBody.velocity;
+      Vector3 localVelocity = transform.InverseTransformVector(worldVelocity);
+
+      // Create a force in the opposite direction of our sideways velocity 
+      // (this creates stability when steering)
+      Vector3 localOpposingForce = new Vector3(-localVelocity.x * m_SteerStabilityForce, 0f, 0f);
+      Vector3 worldOpposingForce = transform.TransformVector(localOpposingForce);
+
+      m_RigidBody.AddForce(worldOpposingForce, ForceMode.Impulse);
+    }
+
   }
   private void Awake()
   {
     m_RigidBody = GetComponent<Rigidbody>();
     m_HoverboardPoints = GameObject.FindGameObjectsWithTag("HoverboardPoint");
+    m_HoverboardAccelPoint = GameObject.FindGameObjectWithTag("HoverboardAccelPoint");
 
     // lower center of mass so we don't flip
     Vector3 centerOfMass = m_RigidBody.centerOfMass;
@@ -80,6 +98,8 @@ public class Hoverboard : MonoBehaviour
       }
     }
   }
+
+  // clamps rotation so we dont flip
   // private void LateUpdate()
   // {
   //   // eulerAngles is returning a value between 0 and 360, 

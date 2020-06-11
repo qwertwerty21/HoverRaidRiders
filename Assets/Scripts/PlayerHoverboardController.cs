@@ -17,7 +17,8 @@ public class PlayerHoverboardController : MonoBehaviour
     float vertical = CrossPlatformInputManager.GetAxis("Vertical");
     float horizontal = CrossPlatformInputManager.GetAxis("Horizontal");
 
-    m_Hoverboard.Move(horizontal, vertical);
+    bool isDrifting = Input.GetKey(KeyCode.LeftShift);
+    m_Hoverboard.Move(horizontal, vertical, isDrifting);
 
   }
 }
