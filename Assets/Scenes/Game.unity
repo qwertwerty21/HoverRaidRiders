@@ -321,10 +321,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3a00725c8eb6450296a3dfa04b43704, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_AdditionalGravity: 1
   m_SteerStabilityForce: 1
+  m_DriftSteerStabilityForce: 0.1
   m_MaxRotationX: 90
   m_MaxRotationZ: 90
-  m_RandomBounceFactor: 1
+  m_HoverBounceSpeed: 1
+  m_HoverBounceHeight: 1
   m_AbsoluteMinLift: 0.2
   m_AbsoluteMaxLift: 5
   m_Speed: 5
@@ -924,7 +927,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 3
 --- !u!114 &1293771829
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -949,10 +952,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3a00725c8eb6450296a3dfa04b43704, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_AdditionalGravity: 5
   m_SteerStabilityForce: 0.4
+  m_DriftSteerStabilityForce: 0.1
   m_MaxRotationX: 90
   m_MaxRotationZ: 90
-  m_RandomBounceFactor: 0.69
+  m_HoverBounceSpeed: 6.5
+  m_HoverBounceHeight: 0.05
   m_AbsoluteMinLift: 0.35
   m_AbsoluteMaxLift: 10
   m_Speed: 17
