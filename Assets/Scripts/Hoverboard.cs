@@ -13,7 +13,7 @@ public class Hoverboard : MonoBehaviour
   public float m_RandomBounceFactor = 1f;
   public float m_AbsoluteMinLift = .2f;
   public float m_AbsoluteMaxLift = 5f;
-  public float m_MoveForce = 5f;
+  public float m_Speed = 5f;
   public float m_TorqueForce = 5f;
   public float m_IdealHoverHeight = 4f;
   // The force applied per unit of distance below the desired height.
@@ -29,8 +29,8 @@ public class Hoverboard : MonoBehaviour
 
   public void Move(float horizontal, float vertical, bool isDrifting)
   {
-    m_RigidBody.AddForce(vertical * m_MoveForce * transform.forward);
-    m_RigidBody.AddTorque(horizontal * m_TorqueForce * Vector3.up);
+    m_RigidBody.AddForce(vertical * m_Speed * transform.forward, ForceMode.Acceleration);
+    m_RigidBody.AddTorque(horizontal * m_TorqueForce * Vector3.up, ForceMode.Force);
     Debug.Log("IsDrifting" + isDrifting);
     if (!isDrifting)
     {
@@ -85,9 +85,13 @@ public class Hoverboard : MonoBehaviour
           Debug.Log("lift1 " + lift1);
           Debug.Log("lift2 " + lift2);
           // todo
-          // drift
+          // acceleration
+          // gravity 
+          // ussing Mathf.SmoothStep to control acceleration
+          // drift sparks and boost
+          // drift steer opposite force should be an adjustable variable
 
-          m_RigidBody.AddForceAtPosition(lift2 * Vector3.up, point.transform.position);
+          m_RigidBody.AddForceAtPosition(lift1 * Vector3.up, point.transform.position, ForceMode.Acceleration);
         }
       }
       else

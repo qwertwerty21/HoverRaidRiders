@@ -12,7 +12,7 @@ public class PlayerHoverboardController : MonoBehaviour
   }
 
   // Update is called once per frame
-  void Update()
+  void FixedUpdate()
   {
     float vertical = CrossPlatformInputManager.GetAxis("Vertical");
     float horizontal = CrossPlatformInputManager.GetAxis("Horizontal");
