@@ -5,6 +5,16 @@ using UnityEngine;
 
 public class Hoverboard : MonoBehaviour
 {
+
+  public float m_InitialSpeed = 10f;
+  public float m_MaxSpeed = 25f;
+  // when drifting, the your current speed will be
+  // DIVIDED by this number, 
+  // so the HIGHER the SLOWER the drift speed
+  // the LOWER the FASTER the drift speed
+  public float m_DriftSpeedReductionFactor = 10f;
+  public float m_Acceleration = 1f;
+  public float m_Deceleration = 1f;
   // additional gravity without having to adjust mass 
   // or world gravity
   public float m_AdditionalGravity = 1f;
@@ -20,7 +30,6 @@ public class Hoverboard : MonoBehaviour
   public float m_HoverBounceHeight = 1f;
   public float m_AbsoluteMinLift = .2f;
   public float m_AbsoluteMaxLift = 5f;
-  public float m_Speed = 5f;
   public float m_TorqueForce = 5f;
   public float m_IdealHoverHeight = 4f;
   // The force applied per unit of distance below the desired height.
@@ -30,13 +39,35 @@ public class Hoverboard : MonoBehaviour
   // something.
   public float m_HoverDamp = 0.5f;
   public Rigidbody m_RigidBody;
+
+  private float m_CurrentSpeed;
   private GameObject[] m_HoverboardPoints;
 
   private GameObject m_HoverboardAccelPoint;
 
   public void Move(float horizontal, float vertical, bool isDrifting)
   {
-    m_RigidBody.AddForce(vertical * m_Speed * transform.forward, ForceMode.Acceleration);
+    // accelerate if moving forward
+    if (vertical > 0f)
+    {
+      m_CurrentSpeed = Mathf.SmoothStep(m_CurrentSpeed, m_MaxSpeed, Time.deltaTime * m_Acceleration);
+    }
+    // decelerate if moving back or stopping
+    else
+    {
+      m_CurrentSpeed = Mathf.SmoothStep(m_CurrentSpeed, m_InitialSpeed, Time.deltaTime * m_Deceleration);
+    }
+    Debug.Log("CurrentSpeed " + m_CurrentSpeed);
+    if (isDrifting)
+    {
+      m_RigidBody.AddForce(vertical * m_CurrentSpeed * transform.forward / m_DriftSpeedReductionFactor, ForceMode.Impulse);
+    }
+    else
+    {
+      m_RigidBody.AddForce(vertical * m_CurrentSpeed * transform.forward, ForceMode.Acceleration);
+
+    }
+    // m_RigidBody.AddForce(vertical * m_CurrentSpeed * transform.forward, isDrifting ? ForceMode.Impulse : ForceMode.Acceleration);
     m_RigidBody.AddTorque(horizontal * m_TorqueForce * Vector3.up, ForceMode.Force);
     Debug.Log("IsDrifting" + isDrifting);
 
@@ -62,6 +93,9 @@ public class Hoverboard : MonoBehaviour
     Vector3 centerOfMass = m_RigidBody.centerOfMass;
     centerOfMass.y -= 1f;
     m_RigidBody.centerOfMass = centerOfMass;
+
+    // set currentSpeed 
+    m_CurrentSpeed = m_InitialSpeed;
   }
 
   // Update is called once per frame
