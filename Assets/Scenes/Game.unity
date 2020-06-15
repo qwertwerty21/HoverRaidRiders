@@ -321,21 +321,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3a00725c8eb6450296a3dfa04b43704, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_InitialSpeed: 10
+  m_MaxSpeed: 25
+  m_DriftSpeedReductionFactor: 10
+  m_Acceleration: 12
+  m_Deceleration: 1
+  m_AirSpeedReductionFactor: 10
   m_AdditionalGravity: 1
   m_SteerStabilityForce: 1
   m_DriftSteerStabilityForce: 0.1
+  m_RotationAmount: 50
   m_MaxRotationX: 90
+  m_MaxRotationY: 15
   m_MaxRotationZ: 90
+  m_HoverboardPointRayDistance: 15
   m_HoverBounceSpeed: 1
   m_HoverBounceHeight: 1
   m_AbsoluteMinLift: 0.2
   m_AbsoluteMaxLift: 5
-  m_Speed: 5
   m_TorqueForce: 0.5
   m_IdealHoverHeight: 4
   m_HoverForce: 2
   m_HoverDamp: 0.1
+  m_GroundCheckRayDistance: 20
   m_RigidBody: {fileID: 0}
+  m_GroundLayerMask:
+    serializedVersion: 2
+    m_Bits: 0
+  m_IsGrounded: 0
 --- !u!114 &202022670
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -535,7 +548,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 663044699}
   m_LocalRotation: {x: 0.40821788, y: -0.23456968, z: 0.10938163, w: 0.8754261}
-  m_LocalPosition: {x: 0, y: 3, z: 0}
+  m_LocalPosition: {x: 0, y: 30, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1863923553}
@@ -556,12 +569,12 @@ PrefabInstance:
     - target: {fileID: 9127306663847221011, guid: 11127527721ef43ceab8d20097e8cf5f,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.45
+      value: -0.035
       objectReference: {fileID: 0}
     - target: {fileID: 9127306663847221011, guid: 11127527721ef43ceab8d20097e8cf5f,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1.923
+      value: 0.64
       objectReference: {fileID: 0}
     - target: {fileID: 9127306663847221011, guid: 11127527721ef43ceab8d20097e8cf5f,
         type: 3}
@@ -621,7 +634,12 @@ PrefabInstance:
     - target: {fileID: 9127306663847221012, guid: 11127527721ef43ceab8d20097e8cf5f,
         type: 3}
       propertyPath: m_Name
-      value: HoverboardAccelPoint
+      value: HoverboardGroundCheckPoint
+      objectReference: {fileID: 0}
+    - target: {fileID: 9127306663847221012, guid: 11127527721ef43ceab8d20097e8cf5f,
+        type: 3}
+      propertyPath: m_TagString
+      value: HoverboardGroundCheckPoint
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 11127527721ef43ceab8d20097e8cf5f, type: 3}
@@ -808,7 +826,7 @@ PrefabInstance:
     - target: {fileID: -4216859302048453862, guid: 0d286bb852c5340e3b58881ff6ea8816,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.476
+      value: 10.6
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 0d286bb852c5340e3b58881ff6ea8816,
         type: 3}
@@ -910,8 +928,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.7, y: 0.6, z: 2.88}
-  m_Center: {x: 0, y: 0.52, z: 0.75}
+  m_Size: {x: 1.65, y: 0.6, z: 1.96}
+  m_Center: {x: 0, y: 0.52, z: 0.49}
 --- !u!54 &1293771828
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -952,21 +970,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3a00725c8eb6450296a3dfa04b43704, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_InitialSpeed: 10
+  m_MaxSpeed: 25
+  m_DriftSpeedReductionFactor: 10
+  m_Acceleration: 1
+  m_Deceleration: 5
+  m_AirSpeedReductionFactor: 10
   m_AdditionalGravity: 5
   m_SteerStabilityForce: 0.4
   m_DriftSteerStabilityForce: 0.1
+  m_RotationAmount: 50
   m_MaxRotationX: 90
+  m_MaxRotationY: 15
   m_MaxRotationZ: 90
+  m_HoverboardPointRayDistance: 1
   m_HoverBounceSpeed: 6.5
-  m_HoverBounceHeight: 0.05
+  m_HoverBounceHeight: 1
   m_AbsoluteMinLift: 0.35
   m_AbsoluteMaxLift: 10
-  m_Speed: 17
   m_TorqueForce: 0.6
-  m_IdealHoverHeight: 1
-  m_HoverForce: 10
-  m_HoverDamp: 0.5
+  m_IdealHoverHeight: 2
+  m_HoverForce: 6
+  m_HoverDamp: 10
+  m_GroundCheckRayDistance: 1
   m_RigidBody: {fileID: 0}
+  m_GroundLayerMask:
+    serializedVersion: 2
+    m_Bits: 256
+  m_IsGrounded: 0
 --- !u!1001 &1474700508
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1047,7 +1078,7 @@ GameObject:
   - component: {fileID: 1580541513}
   - component: {fileID: 1580541515}
   - component: {fileID: 1580541514}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Terrain
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1062,7 +1093,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1580541512}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -317, y: 0, z: -237}
+  m_LocalPosition: {x: -317, y: 10, z: -237}
   m_LocalScale: {x: 10, y: 10, z: 10}
   m_Children: []
   m_Father: {fileID: 1863923553}
@@ -1248,7 +1279,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1660738853}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 10, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1863923553}
@@ -1271,7 +1302,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 4e11ef4f39bc65e44a4b0755ecac6ea1, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 4e11ef4f39bc65e44a4b0755ecac6ea1, type: 3}
       propertyPath: m_LocalPosition.z
@@ -2397,7 +2428,7 @@ MonoBehaviour:
   m_LookAt: {fileID: 0}
   m_Follow: {fileID: 8364585242694262912}
   m_Lens:
-    FieldOfView: 60
+    FieldOfView: 71
     OrthographicSize: 10
     NearClipPlane: 0.1
     FarClipPlane: 5000
@@ -2484,7 +2515,7 @@ Camera:
     height: 1
   near clip plane: 0.1
   far clip plane: 5000
-  field of view: 60
+  field of view: 71
   orthographic: 0
   orthographic size: 10
   m_Depth: -1
@@ -2510,7 +2541,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3561869271518852264}
   m_LocalRotation: {x: 0.008722633, y: -0.010983799, z: -0.010197283, w: 0.9998497}
-  m_LocalPosition: {x: 1.3635889, y: 1.1736778, z: -2.1793694}
+  m_LocalPosition: {x: 1.949555, y: 1.4713016, z: -3.0941515}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 3561869272216358068}
@@ -2544,7 +2575,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BindingMode: 3
-  m_FollowOffset: {x: 0.67, y: 0.59, z: -1.1}
+  m_FollowOffset: {x: 0.96, y: 0.74, z: -1.56}
   m_XDamping: 0
   m_YDamping: 0
   m_ZDamping: 0
