@@ -133,24 +133,11 @@ public class Hoverboard : MonoBehaviour
       // Raycast downward
       if (Physics.Raycast(downRay, out hit, m_HoverboardPointRayDistance))
       {
-        float hoverError = m_IdealHoverHeight - hit.distance;
-        // Debug.Log("hoverError" + hoverError);
-        // if (hoverError > 0)
-        // {
-        // Subtract the damping from the lifting force and apply it to
-        // the rigidbody.
-        float upwardSpeed = m_RigidBody.velocity.y;
-        float lift1 = m_HoverForce * Mathf.Pow((1f - (hit.distance / m_IdealHoverHeight)), 1.7f);
-        lift1 = System.Single.IsNaN(lift1) ? m_AbsoluteMinLift : lift1;
-        float lift2 = hoverError * m_HoverForce - upwardSpeed * m_HoverDamp;
-        // lift1 += Random.Range(-m_HoverBounceHeight, m_HoverBounceHeight);
-        // Debug.Log("magnitude " + m_RigidBody.velocity.magnitude);
+        float lift = m_HoverForce * Mathf.Pow((1f - (hit.distance / m_IdealHoverHeight)), 1.7f);
+        lift = System.Single.IsNaN(lift) ? m_AbsoluteMinLift : lift;
         float bounce = Mathf.Sin(Time.time * m_HoverBounceSpeed) * m_HoverBounceHeight / m_RigidBody.velocity.magnitude;
-        lift1 += System.Single.IsNaN(bounce) ? 0f : bounce;
-        Debug.Log("bounce " + bounce);
-        lift1 = Mathf.Clamp(lift1, m_AbsoluteMinLift, m_AbsoluteMaxLift);
-        // Debug.Log("lift1 " + lift1);
-        // Debug.Log("lift2 " + lift2);
+        lift += System.Single.IsNaN(bounce) ? 0f : bounce;
+        lift = Mathf.Clamp(lift, m_AbsoluteMinLift, m_AbsoluteMaxLift);
         // todo
         // midair movement accel should be reduced
         // drift sparks and boost
@@ -159,8 +146,7 @@ public class Hoverboard : MonoBehaviour
         // mmfeedbacks juice
         // dotween to rotate board
 
-        m_RigidBody.AddForceAtPosition(lift1 * Vector3.up, point.transform.position, ForceMode.Acceleration);
-        // }
+        m_RigidBody.AddForceAtPosition(lift * Vector3.up, point.transform.position, ForceMode.Acceleration);
       }
     }
 
@@ -172,7 +158,6 @@ public class Hoverboard : MonoBehaviour
     if (Physics.Raycast(groundCheckDownRay, out groundCheckHit, m_GroundCheckRayDistance, m_GroundLayerMask))
     {
       m_IsGrounded = true;
-      m_HasTriedMaxBoost = false;
     }
     else
     {
@@ -220,54 +205,54 @@ public class Hoverboard : MonoBehaviour
   //   transform.rotation = rotation;
   // }
 
-  void OnCollisionEnter(Collision collision)
-  {
-    // // eulerAngles is returning a value between 0 and 360, 
-    // // so if > 180 we substract 180 so we can clamp correctly
-    // float rotationX = transform.eulerAngles.x;
-    // rotationX = rotationX > 180f ? rotationX - 360f : rotationX;
-    // rotationX = Mathf.Clamp(rotationX, -m_MaxRotationX, m_MaxRotationX);
+  // void OnCollisionEnter(Collision collision)
+  // {
+  //   // // eulerAngles is returning a value between 0 and 360, 
+  //   // // so if > 180 we substract 180 so we can clamp correctly
+  //   // float rotationX = transform.eulerAngles.x;
+  //   // rotationX = rotationX > 180f ? rotationX - 360f : rotationX;
+  //   // rotationX = Mathf.Clamp(rotationX, -m_MaxRotationX, m_MaxRotationX);
 
-    // float rotationY = transform.eulerAngles.y;
-    // rotationY = rotationY > 180f ? rotationY - 360f : rotationY;
-    // rotationY = Mathf.Clamp(rotationY, -m_MaxRotationY, m_MaxRotationY);
+  //   // float rotationY = transform.eulerAngles.y;
+  //   // rotationY = rotationY > 180f ? rotationY - 360f : rotationY;
+  //   // rotationY = Mathf.Clamp(rotationY, -m_MaxRotationY, m_MaxRotationY);
 
-    // float rotationZ = transform.eulerAngles.z;
-    // rotationZ = rotationZ > 180f ? rotationZ - 360f : rotationZ;
-    // rotationZ = Mathf.Clamp(rotationZ, -m_MaxRotationZ, m_MaxRotationZ);
-
-
-    // // Converts our numbers into euler angles
-    // Quaternion rotation = Quaternion.Euler(transform.eulerAngles.x, rotationY, transform.eulerAngles.z);
-
-    // // Sets our new rot
-    // transform.rotation = rotation;
+  //   // float rotationZ = transform.eulerAngles.z;
+  //   // rotationZ = rotationZ > 180f ? rotationZ - 360f : rotationZ;
+  //   // rotationZ = Mathf.Clamp(rotationZ, -m_MaxRotationZ, m_MaxRotationZ);
 
 
-    if (m_RigidBody.angularVelocity.magnitude > .01f)
-    {
-      Debug.Log("AngularVelocity magnitude before" + m_RigidBody.angularVelocity.magnitude);
-      //Stop rotating
-      m_RigidBody.angularVelocity = Vector3.zero;
-      m_RigidBody.angularDrag = 9999f;
+  //   // // Converts our numbers into euler angles
+  //   // Quaternion rotation = Quaternion.Euler(transform.eulerAngles.x, rotationY, transform.eulerAngles.z);
 
-      m_RigidBody.constraints = RigidbodyConstraints.FreezeRotationY;
-      // // add steer stability force
-      // Vector3 worldAngularVelocity = m_RigidBody.angularVelocity;
-      // Vector3 localAngularVelocity = transform.InverseTransformVector(worldAngularVelocity);
-
-      // // // Create a force in the opposite direction of our sideways velocity 
-      // // // (this creates stability when steering)
-      // float angleAdjustmentForce = m_RigidBody.angularVelocity.magnitude;
-      // Vector3 localOpposingForce = new Vector3(-localAngularVelocity.x * angleAdjustmentForce, 0f, 0f);
-      // Vector3 worldOpposingForce = transform.TransformVector(localOpposingForce);
+  //   // // Sets our new rot
+  //   // transform.rotation = rotation;
 
 
-      // m_RigidBody.AddTorque(worldOpposingForce, ForceMode.Impulse);
-      Debug.Log("AngularVelocity after" + m_RigidBody.angularVelocity.magnitude);
+  //   if (m_RigidBody.angularVelocity.magnitude > .01f)
+  //   {
+  //     Debug.Log("AngularVelocity magnitude before" + m_RigidBody.angularVelocity.magnitude);
+  //     //Stop rotating
+  //     m_RigidBody.angularVelocity = Vector3.zero;
+  //     m_RigidBody.angularDrag = 9999f;
 
-    }
-  }
+  //     m_RigidBody.constraints = RigidbodyConstraints.FreezeRotationY;
+  //     // // add steer stability force
+  //     // Vector3 worldAngularVelocity = m_RigidBody.angularVelocity;
+  //     // Vector3 localAngularVelocity = transform.InverseTransformVector(worldAngularVelocity);
+
+  //     // // // Create a force in the opposite direction of our sideways velocity 
+  //     // // // (this creates stability when steering)
+  //     // float angleAdjustmentForce = m_RigidBody.angularVelocity.magnitude;
+  //     // Vector3 localOpposingForce = new Vector3(-localAngularVelocity.x * angleAdjustmentForce, 0f, 0f);
+  //     // Vector3 worldOpposingForce = transform.TransformVector(localOpposingForce);
+
+
+  //     // m_RigidBody.AddTorque(worldOpposingForce, ForceMode.Impulse);
+  //     Debug.Log("AngularVelocity after" + m_RigidBody.angularVelocity.magnitude);
+
+  //   }
+  // }
 
   void OnCollisionStay(Collision collision)
   {
