@@ -8,6 +8,10 @@ TagManager:
   - HoverboardPoint
   - HoverboardAccelPoint
   - HoverboardGroundCheckPoint
+  - HoverboardWheelColliderFrontLeft
+  - HoverboardWheelColliderFrontRight
+  - HoverboardWheelColliderBackLeft
+  - HoverboardWheelColliderBackRight
   layers:
   - Default
   - TransparentFX
