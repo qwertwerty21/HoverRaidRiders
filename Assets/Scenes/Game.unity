@@ -3407,12 +3407,22 @@ PrefabInstance:
     - target: {fileID: 8812890988257653104, guid: 02a3d7c22a5ac46e0a8134fdea6447cc,
         type: 3}
       propertyPath: m_SteerStabilityForce
-      value: 0
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 8812890988257653104, guid: 02a3d7c22a5ac46e0a8134fdea6447cc,
         type: 3}
       propertyPath: m_DriftSteerStabilityForce
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8812890988257653104, guid: 02a3d7c22a5ac46e0a8134fdea6447cc,
+        type: 3}
+      propertyPath: m_AutoStabilizeStability
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8812890988257653104, guid: 02a3d7c22a5ac46e0a8134fdea6447cc,
+        type: 3}
+      propertyPath: m_MaxSpeed
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 8812890988257653105, guid: 02a3d7c22a5ac46e0a8134fdea6447cc,
         type: 3}

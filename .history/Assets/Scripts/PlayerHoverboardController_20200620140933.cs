@@ -18,5 +18,6 @@ public class PlayerHoverboardController : MonoBehaviour
     float horizontal = CrossPlatformInputManager.GetAxis("Horizontal");
 
     m_Hoverboard.Move(horizontal, vertical);
+
   }
 }

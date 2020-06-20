@@ -115,16 +115,15 @@ public class Hoverboard : MonoBehaviour
   // Update is called once per frame
   private void FixedUpdate()
   {
+    // stabilize
     // transform.rotation = Quaternion.AngleAxis(0, Vector3.up);
     m_RigidBody.angularDrag = m_AngularDrag;
     // gravity 
     m_RigidBody.AddForce(Vector3.down * m_CurrentAdditionalGravity, ForceMode.Acceleration);
 
-    // stabilize
     Vector3 predictedUp = Quaternion.AngleAxis(m_RigidBody.angularVelocity.magnitude * Mathf.Rad2Deg * m_AutoStabilizeStability / m_AutoStabilizeSpeed, m_RigidBody.angularVelocity) * transform.up;
     Vector3 torqueVector = Vector3.Cross(predictedUp, Vector3.up);
     m_RigidBody.AddTorque(torqueVector * m_AutoStabilizeSpeed * m_AutoStabilizeSpeed);
-
     // Float Points
     Debug.Log("EulerAngles " + transform.eulerAngles);
     RaycastHit hit;

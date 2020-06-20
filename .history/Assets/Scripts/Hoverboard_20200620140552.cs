@@ -13,8 +13,6 @@ public class Hoverboard : MonoBehaviour
   public float m_MaxSpeed = 25f;
   public float m_Acceleration = 1f;
   public float m_Deceleration = 1f;
-  public float m_AutoStabilizeStability = 1f;
-  public float m_AutoStabilizeSpeed = 2f;
   // additional gravity without having to adjust mass 
   // or world gravity
   public float m_InitialAdditionalGravity = 1f;
@@ -50,7 +48,7 @@ public class Hoverboard : MonoBehaviour
   private GameObject[] m_HoverboardPoints;
   private GameObject m_HoverboardGroundCheckPoint;
 
-  public void Move(float horizontal, float vertical)
+  public void Move(float horizontal, float vertical, bool isDrifting)
   {
     // accelerate if moving forward
     if (vertical > 0f)
@@ -74,6 +72,11 @@ public class Hoverboard : MonoBehaviour
 
     // add turning force
     m_RigidBody.AddTorque(horizontal * m_TorqueForce * Vector3.up, ForceMode.Force);
+    if (isDrifting)
+    {
+      m_RigidBody.AddTorque(horizontal * m_TorqueForce * Vector3.up, ForceMode.Force);
+
+    }
 
     // // rotate with input
     // float rotationAmount = horizontal * m_RotationAmount;
@@ -119,11 +122,6 @@ public class Hoverboard : MonoBehaviour
     m_RigidBody.angularDrag = m_AngularDrag;
     // gravity 
     m_RigidBody.AddForce(Vector3.down * m_CurrentAdditionalGravity, ForceMode.Acceleration);
-
-    // stabilize
-    Vector3 predictedUp = Quaternion.AngleAxis(m_RigidBody.angularVelocity.magnitude * Mathf.Rad2Deg * m_AutoStabilizeStability / m_AutoStabilizeSpeed, m_RigidBody.angularVelocity) * transform.up;
-    Vector3 torqueVector = Vector3.Cross(predictedUp, Vector3.up);
-    m_RigidBody.AddTorque(torqueVector * m_AutoStabilizeSpeed * m_AutoStabilizeSpeed);
 
     // Float Points
     Debug.Log("EulerAngles " + transform.eulerAngles);
