@@ -136,6 +136,7 @@ public class Hoverboard : MonoBehaviour
         lift = Mathf.Clamp(lift, m_AbsoluteMinLift, m_AbsoluteMaxLift);
         // todo
         // drift sparks and boost
+        // if in air and tilted up, stabilize over time
         // replace mousey with kenny blocky asset
         // animations for character
         // mmfeedbacks juice
