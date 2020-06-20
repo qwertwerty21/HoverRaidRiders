@@ -9,8 +9,6 @@ public class Hoverboard : MonoBehaviour
   public float m_Mass = 3f;
   public float m_Drag = 1f;
   public float m_AngularDrag = 2f;
-  [Range(0, 1)]
-  public float m_AngularVelocityDampenPercentageOnCollisions = .7f;
   public float m_InitialSpeed = 10f;
   public float m_MaxSpeed = 25f;
   public float m_Acceleration = 1f;
@@ -21,8 +19,6 @@ public class Hoverboard : MonoBehaviour
   // or world gravity
   public float m_InitialAdditionalGravity = 1f;
   public float m_MaxAdditionalGravity = 99f;
-
-  public float m_GravityAcceleration = 5f;
   public float m_SteerStabilityForce = .2f;
   // public float m_RotationAmount = 50f;
   public float m_MaxRotationX = 90f;
@@ -171,7 +167,7 @@ public class Hoverboard : MonoBehaviour
     else
     {
       m_IsGrounded = false;
-      m_CurrentAdditionalGravity = Mathf.SmoothStep(m_CurrentAdditionalGravity, m_MaxAdditionalGravity, Time.deltaTime * m_GravityAcceleration);
+      m_CurrentAdditionalGravity = Mathf.SmoothStep(m_CurrentAdditionalGravity, m_MaxAdditionalGravity, Time.deltaTime * m_Acceleration);
     }
 
     // // rotate to align with ground 
@@ -239,56 +235,33 @@ public class Hoverboard : MonoBehaviour
     // transform.rotation = rotation;
 
 
-    if (m_RigidBody.angularVelocity.magnitude > .01f)
-    {
-      Debug.Log("AngularVelocity magnitude before" + m_RigidBody.angularVelocity.magnitude);
-      //Stop rotating
-      m_RigidBody.angularVelocity *= m_AngularVelocityDampenPercentageOnCollisions;
-      // m_RigidBody.angularDrag = 999999f;
+    // if (m_RigidBody.angularVelocity.magnitude > .01f)
+    // {
+    //   Debug.Log("AngularVelocity magnitude before" + m_RigidBody.angularVelocity.magnitude);
+    //   //Stop rotating
+    //   m_RigidBody.angularVelocity = Vector3.zero;
+    //   m_RigidBody.angularDrag = 999999f;
 
-      // m_RigidBody.constraints = RigidbodyConstraints.FreezeRotationY;
-      // // add steer stability force
-      // Vector3 worldAngularVelocity = m_RigidBody.angularVelocity;
-      // Vector3 localAngularVelocity = transform.InverseTransformVector(worldAngularVelocity);
+    //   m_RigidBody.constraints = RigidbodyConstraints.FreezeRotationY;
+    //   // // add steer stability force
+    //   // Vector3 worldAngularVelocity = m_RigidBody.angularVelocity;
+    //   // Vector3 localAngularVelocity = transform.InverseTransformVector(worldAngularVelocity);
 
-      // // // Create a force in the opposite direction of our sideways velocity 
-      // // // (this creates stability when steering)
-      // float angleAdjustmentForce = m_RigidBody.angularVelocity.magnitude;
-      // Vector3 localOpposingForce = new Vector3(-localAngularVelocity.x * angleAdjustmentForce, 0f, 0f);
-      // Vector3 worldOpposingForce = transform.TransformVector(localOpposingForce);
+    //   // // // Create a force in the opposite direction of our sideways velocity 
+    //   // // // (this creates stability when steering)
+    //   // float angleAdjustmentForce = m_RigidBody.angularVelocity.magnitude;
+    //   // Vector3 localOpposingForce = new Vector3(-localAngularVelocity.x * angleAdjustmentForce, 0f, 0f);
+    //   // Vector3 worldOpposingForce = transform.TransformVector(localOpposingForce);
 
 
-      // m_RigidBody.AddTorque(worldOpposingForce, ForceMode.Impulse);
-      Debug.Log("AngularVelocity after" + m_RigidBody.angularVelocity.magnitude);
+    //   // m_RigidBody.AddTorque(worldOpposingForce, ForceMode.Impulse);
+    //   Debug.Log("AngularVelocity after" + m_RigidBody.angularVelocity.magnitude);
 
-    }
+    // }
   }
 
   void OnCollisionStay(Collision collision)
   {
-    if (m_RigidBody.angularVelocity.magnitude > .01f)
-    {
-      Debug.Log("AngularVelocity magnitude before" + m_RigidBody.angularVelocity.magnitude);
-      //Stop rotating
-      m_RigidBody.angularVelocity *= m_AngularVelocityDampenPercentageOnCollisions;
-      // m_RigidBody.angularDrag = 999999f;
-
-      // m_RigidBody.constraints = RigidbodyConstraints.FreezeRotationY;
-      // // add steer stability force
-      // Vector3 worldAngularVelocity = m_RigidBody.angularVelocity;
-      // Vector3 localAngularVelocity = transform.InverseTransformVector(worldAngularVelocity);
-
-      // // // Create a force in the opposite direction of our sideways velocity 
-      // // // (this creates stability when steering)
-      // float angleAdjustmentForce = m_RigidBody.angularVelocity.magnitude;
-      // Vector3 localOpposingForce = new Vector3(-localAngularVelocity.x * angleAdjustmentForce, 0f, 0f);
-      // Vector3 worldOpposingForce = transform.TransformVector(localOpposingForce);
-
-
-      // m_RigidBody.AddTorque(worldOpposingForce, ForceMode.Impulse);
-      Debug.Log("AngularVelocity after" + m_RigidBody.angularVelocity.magnitude);
-
-    }
     if (collision.gameObject.layer == Constants.m_GroundLayerMask)
     {
       m_RigidBody.AddForceAtPosition(m_AbsoluteMaxLift * Vector3.up, m_HoverboardGroundCheckPoint.transform.position, ForceMode.Acceleration);

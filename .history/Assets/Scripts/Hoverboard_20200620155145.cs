@@ -21,8 +21,6 @@ public class Hoverboard : MonoBehaviour
   // or world gravity
   public float m_InitialAdditionalGravity = 1f;
   public float m_MaxAdditionalGravity = 99f;
-
-  public float m_GravityAcceleration = 5f;
   public float m_SteerStabilityForce = .2f;
   // public float m_RotationAmount = 50f;
   public float m_MaxRotationX = 90f;
@@ -171,7 +169,7 @@ public class Hoverboard : MonoBehaviour
     else
     {
       m_IsGrounded = false;
-      m_CurrentAdditionalGravity = Mathf.SmoothStep(m_CurrentAdditionalGravity, m_MaxAdditionalGravity, Time.deltaTime * m_GravityAcceleration);
+      m_CurrentAdditionalGravity = Mathf.SmoothStep(m_CurrentAdditionalGravity, m_MaxAdditionalGravity, Time.deltaTime * m_Acceleration);
     }
 
     // // rotate to align with ground 

@@ -3392,7 +3392,7 @@ PrefabInstance:
     - target: {fileID: 8812890988257653104, guid: 02a3d7c22a5ac46e0a8134fdea6447cc,
         type: 3}
       propertyPath: m_IdealHoverHeight
-      value: 2.5
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8812890988257653104, guid: 02a3d7c22a5ac46e0a8134fdea6447cc,
         type: 3}
@@ -3402,7 +3402,7 @@ PrefabInstance:
     - target: {fileID: 8812890988257653104, guid: 02a3d7c22a5ac46e0a8134fdea6447cc,
         type: 3}
       propertyPath: m_InitialAdditionalGravity
-      value: 3
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8812890988257653104, guid: 02a3d7c22a5ac46e0a8134fdea6447cc,
         type: 3}
@@ -3423,6 +3423,36 @@ PrefabInstance:
         type: 3}
       propertyPath: m_MaxSpeed
       value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 8812890988257653104, guid: 02a3d7c22a5ac46e0a8134fdea6447cc,
+        type: 3}
+      propertyPath: m_HoverForce
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8812890988257653104, guid: 02a3d7c22a5ac46e0a8134fdea6447cc,
+        type: 3}
+      propertyPath: m_Mass
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 8812890988257653104, guid: 02a3d7c22a5ac46e0a8134fdea6447cc,
+        type: 3}
+      propertyPath: m_TorqueForce
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 8812890988257653104, guid: 02a3d7c22a5ac46e0a8134fdea6447cc,
+        type: 3}
+      propertyPath: m_Drag
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8812890988257653104, guid: 02a3d7c22a5ac46e0a8134fdea6447cc,
+        type: 3}
+      propertyPath: m_AngularDrag
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8812890988257653104, guid: 02a3d7c22a5ac46e0a8134fdea6447cc,
+        type: 3}
+      propertyPath: m_GravityAcceleration
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8812890988257653105, guid: 02a3d7c22a5ac46e0a8134fdea6447cc,
         type: 3}
