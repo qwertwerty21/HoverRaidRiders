@@ -17,7 +17,7 @@ public class Hoverboard : MonoBehaviour
   public float m_Deceleration = 1f;
   // additional gravity without having to adjust mass 
   // or world gravity
-  public float m_AdditionalGravity = 1f;
+  public float m_InitialAdditionalGravity = 1f;
   public float m_SteerStabilityForce = 1f;
   public float m_DriftSteerStabilityForce = 0.1f;
   public float m_RotationAmount = 50f;
@@ -46,6 +46,7 @@ public class Hoverboard : MonoBehaviour
   public LayerMask m_GroundLayerMask; // could be unnecessary
   public bool m_IsGrounded = false;
   private float m_CurrentSpeed;
+  private float m_CurrentAdditionalGravity;
   private GameObject[] m_HoverboardPoints;
   private GameObject m_HoverboardGroundCheckPoint;
 
@@ -118,9 +119,10 @@ public class Hoverboard : MonoBehaviour
   // Update is called once per frame
   private void FixedUpdate()
   {
+    // transform.rotation = Quaternion.AngleAxis(0, Vector3.up);
     m_RigidBody.angularDrag = 2f;
     // gravity 
-    m_RigidBody.AddForce(Vector3.down * m_AdditionalGravity, ForceMode.Acceleration);
+    m_RigidBody.AddForce(Vector3.down * m_CurrentAdditionalGravity, ForceMode.Acceleration);
 
     // Float Points
     Debug.Log("EulerAngles " + transform.eulerAngles);
@@ -139,6 +141,7 @@ public class Hoverboard : MonoBehaviour
         lift += System.Single.IsNaN(bounce) ? 0f : bounce;
         lift = Mathf.Clamp(lift, m_AbsoluteMinLift, m_AbsoluteMaxLift);
         // todo
+        // incremenetally add more downforce the longer in midair, reset when isgrounded
         // midair movement accel should be reduced
         // drift sparks and boost
         // replace mousey with kenny blocky asset
@@ -158,10 +161,12 @@ public class Hoverboard : MonoBehaviour
     if (Physics.Raycast(groundCheckDownRay, out groundCheckHit, m_GroundCheckRayDistance, m_GroundLayerMask))
     {
       m_IsGrounded = true;
+      m_CurrentAdditionalGravity = m_InitialAdditionalGravity;
     }
     else
     {
       m_IsGrounded = false;
+      m_CurrentAdditionalGravity++;
     }
 
     // // rotate to align with ground 
@@ -205,60 +210,60 @@ public class Hoverboard : MonoBehaviour
   //   transform.rotation = rotation;
   // }
 
-  // void OnCollisionEnter(Collision collision)
-  // {
-  //   // // eulerAngles is returning a value between 0 and 360, 
-  //   // // so if > 180 we substract 180 so we can clamp correctly
-  //   // float rotationX = transform.eulerAngles.x;
-  //   // rotationX = rotationX > 180f ? rotationX - 360f : rotationX;
-  //   // rotationX = Mathf.Clamp(rotationX, -m_MaxRotationX, m_MaxRotationX);
+  void OnCollisionEnter(Collision collision)
+  {
+    // // eulerAngles is returning a value between 0 and 360, 
+    // // so if > 180 we substract 180 so we can clamp correctly
+    // float rotationX = transform.eulerAngles.x;
+    // rotationX = rotationX > 180f ? rotationX - 360f : rotationX;
+    // rotationX = Mathf.Clamp(rotationX, -m_MaxRotationX, m_MaxRotationX);
 
-  //   // float rotationY = transform.eulerAngles.y;
-  //   // rotationY = rotationY > 180f ? rotationY - 360f : rotationY;
-  //   // rotationY = Mathf.Clamp(rotationY, -m_MaxRotationY, m_MaxRotationY);
+    // float rotationY = transform.eulerAngles.y;
+    // rotationY = rotationY > 180f ? rotationY - 360f : rotationY;
+    // rotationY = Mathf.Clamp(rotationY, -m_MaxRotationY, m_MaxRotationY);
 
-  //   // float rotationZ = transform.eulerAngles.z;
-  //   // rotationZ = rotationZ > 180f ? rotationZ - 360f : rotationZ;
-  //   // rotationZ = Mathf.Clamp(rotationZ, -m_MaxRotationZ, m_MaxRotationZ);
-
-
-  //   // // Converts our numbers into euler angles
-  //   // Quaternion rotation = Quaternion.Euler(transform.eulerAngles.x, rotationY, transform.eulerAngles.z);
-
-  //   // // Sets our new rot
-  //   // transform.rotation = rotation;
+    // float rotationZ = transform.eulerAngles.z;
+    // rotationZ = rotationZ > 180f ? rotationZ - 360f : rotationZ;
+    // rotationZ = Mathf.Clamp(rotationZ, -m_MaxRotationZ, m_MaxRotationZ);
 
 
-  //   if (m_RigidBody.angularVelocity.magnitude > .01f)
-  //   {
-  //     Debug.Log("AngularVelocity magnitude before" + m_RigidBody.angularVelocity.magnitude);
-  //     //Stop rotating
-  //     m_RigidBody.angularVelocity = Vector3.zero;
-  //     m_RigidBody.angularDrag = 9999f;
+    // // Converts our numbers into euler angles
+    // Quaternion rotation = Quaternion.Euler(transform.eulerAngles.x, rotationY, transform.eulerAngles.z);
 
-  //     m_RigidBody.constraints = RigidbodyConstraints.FreezeRotationY;
-  //     // // add steer stability force
-  //     // Vector3 worldAngularVelocity = m_RigidBody.angularVelocity;
-  //     // Vector3 localAngularVelocity = transform.InverseTransformVector(worldAngularVelocity);
-
-  //     // // // Create a force in the opposite direction of our sideways velocity 
-  //     // // // (this creates stability when steering)
-  //     // float angleAdjustmentForce = m_RigidBody.angularVelocity.magnitude;
-  //     // Vector3 localOpposingForce = new Vector3(-localAngularVelocity.x * angleAdjustmentForce, 0f, 0f);
-  //     // Vector3 worldOpposingForce = transform.TransformVector(localOpposingForce);
+    // // Sets our new rot
+    // transform.rotation = rotation;
 
 
-  //     // m_RigidBody.AddTorque(worldOpposingForce, ForceMode.Impulse);
-  //     Debug.Log("AngularVelocity after" + m_RigidBody.angularVelocity.magnitude);
+    if (m_RigidBody.angularVelocity.magnitude > .01f)
+    {
+      Debug.Log("AngularVelocity magnitude before" + m_RigidBody.angularVelocity.magnitude);
+      //Stop rotating
+      m_RigidBody.angularVelocity = Vector3.zero;
+      m_RigidBody.angularDrag = 999999f;
 
-  //   }
-  // }
+      m_RigidBody.constraints = RigidbodyConstraints.FreezeRotationY;
+      // // add steer stability force
+      // Vector3 worldAngularVelocity = m_RigidBody.angularVelocity;
+      // Vector3 localAngularVelocity = transform.InverseTransformVector(worldAngularVelocity);
+
+      // // // Create a force in the opposite direction of our sideways velocity 
+      // // // (this creates stability when steering)
+      // float angleAdjustmentForce = m_RigidBody.angularVelocity.magnitude;
+      // Vector3 localOpposingForce = new Vector3(-localAngularVelocity.x * angleAdjustmentForce, 0f, 0f);
+      // Vector3 worldOpposingForce = transform.TransformVector(localOpposingForce);
+
+
+      // m_RigidBody.AddTorque(worldOpposingForce, ForceMode.Impulse);
+      Debug.Log("AngularVelocity after" + m_RigidBody.angularVelocity.magnitude);
+
+    }
+  }
 
   void OnCollisionStay(Collision collision)
   {
     if (collision.gameObject.layer == Constants.m_GroundLayerMask)
     {
-      m_RigidBody.AddForceAtPosition(m_AbsoluteMinLift * Vector3.up, m_HoverboardGroundCheckPoint.transform.position, ForceMode.Acceleration);
+      m_RigidBody.AddForceAtPosition(m_AbsoluteMaxLift * Vector3.up, m_HoverboardGroundCheckPoint.transform.position, ForceMode.Acceleration);
     }
   }
 }

@@ -3374,10 +3374,41 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5414418096495092195, guid: 02a3d7c22a5ac46e0a8134fdea6447cc,
+        type: 3}
+      propertyPath: m_Lens.FieldOfView
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 5414418096495092204, guid: 02a3d7c22a5ac46e0a8134fdea6447cc,
+        type: 3}
+      propertyPath: field of view
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 8812890988257653104, guid: 02a3d7c22a5ac46e0a8134fdea6447cc,
+        type: 3}
+      propertyPath: m_HoverBounceHeight
+      value: 0.52
+      objectReference: {fileID: 0}
+    - target: {fileID: 8812890988257653104, guid: 02a3d7c22a5ac46e0a8134fdea6447cc,
+        type: 3}
+      propertyPath: m_IdealHoverHeight
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8812890988257653104, guid: 02a3d7c22a5ac46e0a8134fdea6447cc,
+        type: 3}
+      propertyPath: m_DriftSpeedReductionFactor
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8812890988257653105, guid: 02a3d7c22a5ac46e0a8134fdea6447cc,
+        type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 13400000, guid: 01571ba68fb2dad46aa03094ab219579,
+        type: 2}
     - target: {fileID: 8812890988257653106, guid: 02a3d7c22a5ac46e0a8134fdea6447cc,
         type: 3}
       propertyPath: m_AngularDrag
-      value: 1.5
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 02a3d7c22a5ac46e0a8134fdea6447cc, type: 3}
