@@ -46,8 +46,6 @@ public class Hoverboard : MonoBehaviour
   // something.
   public float m_HoverDamp = 0.5f;
   public float m_GroundCheckRayDistance = 20f;
-  public float m_MinFOV = 40f;
-  public float m_MaxFOV = 80f;
   public Rigidbody m_RigidBody;
   public LayerMask m_GroundLayerMask; // could be unnecessary
   private Rider m_Rider;
@@ -100,8 +98,7 @@ public class Hoverboard : MonoBehaviour
     m_RigidBody.AddForce(worldOpposingForce, ForceMode.Impulse);
     m_Rider.m_Animator.SetFloat("vertical", vertical);
     m_Rider.m_Animator.SetFloat("horizontal", horizontal);
-    float targetFOV = Mathf.Clamp(m_CurrentSpeed / m_MaxSpeed * m_MaxFOV, m_MinFOV, m_MaxFOV);
-    GameManager.Instance.SetFieldOfView(targetFOV);
+    GameManager.Instance.SetFieldOfView(10f);
   }
   private void Awake()
   {
