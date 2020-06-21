@@ -48,7 +48,6 @@ public class Hoverboard : MonoBehaviour
   public float m_GroundCheckRayDistance = 20f;
   public float m_MinFOV = 40f;
   public float m_MaxFOV = 80f;
-  public float m_FOVSwitchThreshold = .9f;
   public Rigidbody m_RigidBody;
   public LayerMask m_GroundLayerMask; // could be unnecessary
   private Rider m_Rider;
@@ -101,14 +100,8 @@ public class Hoverboard : MonoBehaviour
     m_RigidBody.AddForce(worldOpposingForce, ForceMode.Impulse);
     m_Rider.m_Animator.SetFloat("vertical", vertical);
     m_Rider.m_Animator.SetFloat("horizontal", horizontal);
-    float currentSpeedPercentage = m_CurrentSpeed / m_MaxSpeed;
-    float targetFOV = m_MinFOV;
-    if (currentSpeedPercentage > m_FOVSwitchThreshold)
-    {
-      targetFOV = Mathf.Clamp(currentSpeedPercentage * m_MaxFOV, m_MinFOV, m_MaxFOV);
-    }
+    float targetFOV = Mathf.Clamp(m_CurrentSpeed / m_MaxSpeed * m_MaxFOV, m_MinFOV, m_MaxFOV);
     GameManager.Instance.SetFieldOfView(targetFOV);
-
   }
 
   private void DampenAngularVelocity()

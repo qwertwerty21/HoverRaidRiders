@@ -2146,7 +2146,7 @@ MonoBehaviour:
   m_AngularDrag: 2
   m_AngularVelocityDampenPercentageOnCollisions: 0.7
   m_InitialSpeed: 15
-  m_MaxSpeed: 30
+  m_MaxSpeed: 35
   m_Acceleration: 2
   m_Deceleration: 5
   m_AutoStabilizeStability: 0.3
@@ -2168,8 +2168,9 @@ MonoBehaviour:
   m_HoverForce: 10
   m_HoverDamp: 10
   m_GroundCheckRayDistance: 3
-  m_MinFOV: 40
-  m_MaxFOV: 80
+  m_MinFOV: 50
+  m_MaxFOV: 100
+  m_FOVSwitchThreshold: 0
   m_RigidBody: {fileID: 0}
   m_GroundLayerMask:
     serializedVersion: 2
@@ -4509,7 +4510,7 @@ MonoBehaviour:
   m_LookAt: {fileID: 5006512736063246122}
   m_Follow: {fileID: 5006512736063246122}
   m_Lens:
-    FieldOfView: 51.55546
+    FieldOfView: 59.89467
     OrthographicSize: 10
     NearClipPlane: 0.1
     FarClipPlane: 5000
@@ -4596,7 +4597,7 @@ Camera:
     height: 1
   near clip plane: 0.1
   far clip plane: 5000
-  field of view: 51.55546
+  field of view: 59.89467
   orthographic: 0
   orthographic size: 10
   m_Depth: -1

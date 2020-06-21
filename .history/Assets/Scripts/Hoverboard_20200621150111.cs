@@ -48,6 +48,7 @@ public class Hoverboard : MonoBehaviour
   public float m_GroundCheckRayDistance = 20f;
   public float m_MinFOV = 40f;
   public float m_MaxFOV = 80f;
+
   public float m_FOVSwitchThreshold = .9f;
   public Rigidbody m_RigidBody;
   public LayerMask m_GroundLayerMask; // could be unnecessary
