@@ -48,6 +48,7 @@ public class Hoverboard : MonoBehaviour
   public float m_GroundCheckRayDistance = 20f;
   public Rigidbody m_RigidBody;
   public LayerMask m_GroundLayerMask; // could be unnecessary
+  private Animator m_RiderAnimator;
   public bool m_IsGrounded = false;
   private float m_CurrentSpeed;
   private float m_CurrentAdditionalGravity;
@@ -95,14 +96,16 @@ public class Hoverboard : MonoBehaviour
     Vector3 worldOpposingForce = transform.TransformVector(localOpposingForce);
 
     m_RigidBody.AddForce(worldOpposingForce, ForceMode.Impulse);
-
-
+    m_RiderAnimator.SetFloat("vertical", vertical);
+    m_RiderAnimator.SetFloat("horizontal", horizontal);
   }
   private void Awake()
   {
     m_RigidBody = GetComponent<Rigidbody>();
     m_HoverboardPoints = GameObject.FindGameObjectsWithTag("HoverboardPoint");
     m_HoverboardGroundCheckPoint = GameObject.FindGameObjectWithTag("HoverboardGroundCheckPoint");
+
+    m_RiderAnimator = GetComponentInChildren<Animator>();
 
     // lower center of mass so we don't flip
     Vector3 centerOfMass = m_RigidBody.centerOfMass;
@@ -120,6 +123,7 @@ public class Hoverboard : MonoBehaviour
   // Update is called once per frame
   private void FixedUpdate()
   {
+
     // transform.rotation = Quaternion.AngleAxis(0, Vector3.up);
     m_RigidBody.angularDrag = m_AngularDrag;
     // gravity 
@@ -147,12 +151,12 @@ public class Hoverboard : MonoBehaviour
         lift += System.Single.IsNaN(bounce) ? 0f : bounce;
         lift = Mathf.Clamp(lift, m_AbsoluteMinLift, m_AbsoluteMaxLift);
         // todo
-        // drift sparks and boost
-        // if in air and tilted up, stabilize over time
         // replace mousey with kenny blocky asset
+        // camera shit
         // animations for character
         // mmfeedbacks juice
         // dotween to rotate board
+        // drift sparks and boost
 
         m_RigidBody.AddForceAtPosition(lift * Vector3.up, point.transform.position, ForceMode.Acceleration);
       }
