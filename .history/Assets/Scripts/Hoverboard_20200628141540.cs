@@ -105,13 +105,10 @@ public class Hoverboard : MonoBehaviour
     float steerStabilityForce = m_SteerStabilityForce;
     Vector3 localOpposingForce = new Vector3(-localVelocity.x * steerStabilityForce, 0f, 0f);
     Vector3 worldOpposingForce = transform.TransformVector(localOpposingForce);
-    m_RigidBody.AddForce(worldOpposingForce, ForceMode.Impulse);
 
-    // set animator params
+    m_RigidBody.AddForce(worldOpposingForce, ForceMode.Impulse);
     m_Rider.m_Animator.SetFloat("vertical", vertical);
     m_Rider.m_Animator.SetFloat("horizontal", horizontal);
-
-    // adjust field of view according to speed
     float currentSpeedPercentage = m_RigidBody.velocity.magnitude / m_MaxSpeed;
     float targetFOV = m_MinFOV;
     float fovAdjustmentSpeed = m_FOVZoomInAdjustmentSpeed;

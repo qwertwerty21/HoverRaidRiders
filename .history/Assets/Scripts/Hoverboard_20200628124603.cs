@@ -53,13 +53,11 @@ public class Hoverboard : MonoBehaviour
   public float m_FOVZoomOutAdjustmentSpeed = 7f;
   [Range(0f, 1f)]
   public float m_FOVSwitchThreshold = .9f;
-  public float m_StaggerFeedbackThreshold = .6f;
+  public float m_CollisionFeedbackThreshold = .6f;
   public Rigidbody m_RigidBody;
   public LayerMask m_GroundLayerMask; // could be unnecessary
-  public MMFeedbacks m_StaggerFeedback;
+  public MMFeedbacks m_CollisionFeedback;
   public MMFeedbacks m_TurnFeedback;
-  public MMFeedbacks m_AccelerationFeedback;
-  private Dictionary<string, MMFeedbacks> m_FeedbacksHash = new Dictionary<string, MMFeedbacks>();
 
   private Rider m_Rider;
   public bool m_IsGrounded = false;
@@ -78,23 +76,26 @@ public class Hoverboard : MonoBehaviour
     // decelerate if moving back or stopping
     else
     {
+      m_RigidBody.velocity *= .95f;
       m_CurrentSpeed = Mathf.SmoothStep(m_CurrentSpeed, m_InitialSpeed, Time.deltaTime * m_Deceleration);
     }
 
     // add forward force
-    if (!Mathf.Approximately(vertical, 0f))
+    Debug.Log("CurrentSpeed " + m_CurrentSpeed);
+    m_RigidBody.AddForce(vertical * m_CurrentSpeed * transform.forward, ForceMode.Acceleration);
+
+    if (!Mathf.Approximately(horizontal, 0f))
     {
-      m_FeedbacksHash["AccelerationFeedback"].PlayFeedbacks();
-      m_RigidBody.AddForce(vertical * m_CurrentSpeed * transform.forward, ForceMode.Acceleration);
+      m_TurnFeedback.PlayFeedbacks();
     }
 
     // add turning force
-    if (!Mathf.Approximately(horizontal, 0f))
-    {
-      m_FeedbacksHash["TurnFeedback"].PlayFeedbacks();
+    m_RigidBody.AddTorque(horizontal * m_TorqueForce * Vector3.up, ForceMode.Force);
 
-      m_RigidBody.AddTorque(horizontal * m_TorqueForce * Vector3.up, ForceMode.Force);
-    }
+    // // rotate with input
+    // float rotationAmount = horizontal * m_RotationAmount;
+    // rotationAmount *= Time.deltaTime;
+    // transform.Rotate(rotationAmount, transform.rotation.y, rotationAmount);
 
     // add steer stability force
     Vector3 worldVelocity = m_RigidBody.velocity;
@@ -105,13 +106,10 @@ public class Hoverboard : MonoBehaviour
     float steerStabilityForce = m_SteerStabilityForce;
     Vector3 localOpposingForce = new Vector3(-localVelocity.x * steerStabilityForce, 0f, 0f);
     Vector3 worldOpposingForce = transform.TransformVector(localOpposingForce);
-    m_RigidBody.AddForce(worldOpposingForce, ForceMode.Impulse);
 
-    // set animator params
+    m_RigidBody.AddForce(worldOpposingForce, ForceMode.Impulse);
     m_Rider.m_Animator.SetFloat("vertical", vertical);
     m_Rider.m_Animator.SetFloat("horizontal", horizontal);
-
-    // adjust field of view according to speed
     float currentSpeedPercentage = m_RigidBody.velocity.magnitude / m_MaxSpeed;
     float targetFOV = m_MinFOV;
     float fovAdjustmentSpeed = m_FOVZoomInAdjustmentSpeed;
@@ -137,19 +135,13 @@ public class Hoverboard : MonoBehaviour
     m_HoverboardPoints = GameObject.FindGameObjectsWithTag("HoverboardPoint");
     m_HoverboardGroundCheckPoint = GameObject.FindGameObjectWithTag("HoverboardGroundCheckPoint");
 
-    // add all feedbacks to hash for easy access
-    MMFeedbacks[] feedbacks = GetComponentsInChildren<MMFeedbacks>();
-    foreach (MMFeedbacks feedback in feedbacks)
-    {
-      m_FeedbacksHash.Add(feedback.gameObject.name, feedback);
-    }
-
     m_Rider = GetComponentInChildren<Rider>();
 
     // lower center of mass so we don't flip
     Vector3 centerOfMass = m_RigidBody.centerOfMass;
     centerOfMass.y -= 1f;
     m_RigidBody.centerOfMass = centerOfMass;
+
 
     m_RigidBody.mass = m_Mass;
     m_RigidBody.drag = m_Drag;
@@ -161,18 +153,20 @@ public class Hoverboard : MonoBehaviour
   // Update is called once per frame
   private void FixedUpdate()
   {
+    // transform.rotation = Quaternion.AngleAxis(0, Vector3.up);
     m_RigidBody.angularDrag = m_AngularDrag;
-
     // gravity 
     m_RigidBody.AddForce(Vector3.down * m_CurrentAdditionalGravity, ForceMode.Acceleration);
-
     // stabilize
     Vector3 predictedUp = Quaternion.AngleAxis(m_RigidBody.angularVelocity.magnitude * Mathf.Rad2Deg * m_AutoStabilizeStability / m_AutoStabilizeSpeed, m_RigidBody.angularVelocity) * transform.up;
     Vector3 torqueVector = Vector3.Cross(predictedUp, Vector3.up);
+    Debug.Log("TorquVector " + torqueVector);
     m_RigidBody.AddTorque(torqueVector * m_AutoStabilizeSpeed * m_AutoStabilizeSpeed, ForceMode.Acceleration);
 
     // Float Points
+    Debug.Log("EulerAngles " + transform.eulerAngles);
     RaycastHit hit;
+
     foreach (GameObject point in m_HoverboardPoints)
     {
       Ray downRay = new Ray(point.transform.position, Vector3.down);
@@ -214,23 +208,85 @@ public class Hoverboard : MonoBehaviour
       m_CurrentAdditionalGravity = Mathf.SmoothStep(m_CurrentAdditionalGravity, m_MaxAdditionalGravity, Time.deltaTime * m_GravityAcceleration);
     }
 
+    // // rotate to align with ground 
+    // RaycastHit centerOfMassHit;
+    // Vector3 center = m_RigidBody.centerOfMass;
+    // center.y += 2f;
+    // Ray centerOfMassDownRay = new Ray(center, Vector3.down);
+    // Debug.DrawRay(center, Vector3.down, Color.blue);
+
+    // if (Physics.Raycast(centerOfMassDownRay, out centerOfMassHit, Mathf.Infinity, m_GroundLayerMask))
+    // {
+    //   Debug.Log("CenterOfMassHit" + centerOfMassHit.normal);
+    //   // after raycast, or however you get normal:
+    //   // Compute angle to tilt with ground:
+    //   Quaternion groundRotation = Quaternion.FromToRotation(Vector3.up, centerOfMassHit.normal) * transform.rotation;
+
+    //   // tilt to align with ground:  
+    //   transform.rotation = Quaternion.Slerp(transform.rotation, groundRotation, Time.deltaTime);
+    // }
+
   }
+
+  // clamps rotation so we dont flip
+  // private void LateUpdate()
+  // {
+  //   // eulerAngles is returning a value between 0 and 360, 
+  //   // so if > 180 we substract 180 so we can clamp correctly
+  //   float rotationX = transform.eulerAngles.x;
+  //   rotationX = rotationX > 180f ? rotationX - 360f : rotationX;
+  //   rotationX = Mathf.Clamp(rotationX, -m_MaxRotationX, m_MaxRotationX);
+
+  //   float rotationZ = transform.eulerAngles.z;
+  //   rotationZ = rotationZ > 180f ? rotationZ - 360f : rotationZ;
+  //   rotationZ = Mathf.Clamp(rotationZ, -m_MaxRotationZ, m_MaxRotationZ);
+
+
+  //   // Converts our numbers into euler angles
+  //   Quaternion rotation = Quaternion.Euler(rotationX, transform.eulerAngles.y, rotationZ);
+
+  //   // Sets our new rot
+  //   transform.rotation = rotation;
+  // }
 
   void OnCollisionEnter(Collision collision)
   {
-    DampenAngularVelocity();
+    // // eulerAngles is returning a value between 0 and 360, 
+    // // so if > 180 we substract 180 so we can clamp correctly
+    // float rotationX = transform.eulerAngles.x;
+    // rotationX = rotationX > 180f ? rotationX - 360f : rotationX;
+    // rotationX = Mathf.Clamp(rotationX, -m_MaxRotationX, m_MaxRotationX);
 
+    // float rotationY = transform.eulerAngles.y;
+    // rotationY = rotationY > 180f ? rotationY - 360f : rotationY;
+    // rotationY = Mathf.Clamp(rotationY, -m_MaxRotationY, m_MaxRotationY);
+
+    // float rotationZ = transform.eulerAngles.z;
+    // rotationZ = rotationZ > 180f ? rotationZ - 360f : rotationZ;
+    // rotationZ = Mathf.Clamp(rotationZ, -m_MaxRotationZ, m_MaxRotationZ);
+
+
+    // // Converts our numbers into euler angles
+    // Quaternion rotation = Quaternion.Euler(transform.eulerAngles.x, rotationY, transform.eulerAngles.z);
+
+    // // Sets our new rot
+    // transform.rotation = rotation;
+    DampenAngularVelocity();
+    print("Contact normals" + collision.contacts[0].normal);
+    var normal = collision.contacts[0].normal;
     // we dont want to stagger if hoverboard contacts ground on bottom
     // because that looks weird
-    var normal = collision.contacts[0].normal;
-    if (normal.y < 1f && m_RigidBody.angularVelocity.magnitude > m_StaggerFeedbackThreshold)
+    if (normal.y < 1f && m_RigidBody.angularVelocity.magnitude > m_CollisionFeedbackThreshold)
     {
-      m_FeedbacksHash["StaggerFeedback"].PlayFeedbacks();
+      m_CollisionFeedback.PlayFeedbacks();
+
     }
+
   }
 
   void OnCollisionStay(Collision collision)
   {
     DampenAngularVelocity();
+
   }
 }

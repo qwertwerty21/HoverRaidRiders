@@ -81,20 +81,29 @@ public class Hoverboard : MonoBehaviour
       m_CurrentSpeed = Mathf.SmoothStep(m_CurrentSpeed, m_InitialSpeed, Time.deltaTime * m_Deceleration);
     }
 
-    // add forward force
+
+
     if (!Mathf.Approximately(vertical, 0f))
     {
-      m_FeedbacksHash["AccelerationFeedback"].PlayFeedbacks();
+      m_AccelerationFeedback.PlayFeedbacks();
+      // add forward force
       m_RigidBody.AddForce(vertical * m_CurrentSpeed * transform.forward, ForceMode.Acceleration);
     }
 
-    // add turning force
     if (!Mathf.Approximately(horizontal, 0f))
     {
-      m_FeedbacksHash["TurnFeedback"].PlayFeedbacks();
+      m_TurnFeedback.PlayFeedbacks();
 
+      // add turning force
       m_RigidBody.AddTorque(horizontal * m_TorqueForce * Vector3.up, ForceMode.Force);
     }
+
+
+
+    // // rotate with input
+    // float rotationAmount = horizontal * m_RotationAmount;
+    // rotationAmount *= Time.deltaTime;
+    // transform.Rotate(rotationAmount, transform.rotation.y, rotationAmount);
 
     // add steer stability force
     Vector3 worldVelocity = m_RigidBody.velocity;
@@ -105,13 +114,10 @@ public class Hoverboard : MonoBehaviour
     float steerStabilityForce = m_SteerStabilityForce;
     Vector3 localOpposingForce = new Vector3(-localVelocity.x * steerStabilityForce, 0f, 0f);
     Vector3 worldOpposingForce = transform.TransformVector(localOpposingForce);
-    m_RigidBody.AddForce(worldOpposingForce, ForceMode.Impulse);
 
-    // set animator params
+    m_RigidBody.AddForce(worldOpposingForce, ForceMode.Impulse);
     m_Rider.m_Animator.SetFloat("vertical", vertical);
     m_Rider.m_Animator.SetFloat("horizontal", horizontal);
-
-    // adjust field of view according to speed
     float currentSpeedPercentage = m_RigidBody.velocity.magnitude / m_MaxSpeed;
     float targetFOV = m_MinFOV;
     float fovAdjustmentSpeed = m_FOVZoomInAdjustmentSpeed;
@@ -137,9 +143,8 @@ public class Hoverboard : MonoBehaviour
     m_HoverboardPoints = GameObject.FindGameObjectsWithTag("HoverboardPoint");
     m_HoverboardGroundCheckPoint = GameObject.FindGameObjectWithTag("HoverboardGroundCheckPoint");
 
-    // add all feedbacks to hash for easy access
     MMFeedbacks[] feedbacks = GetComponentsInChildren<MMFeedbacks>();
-    foreach (MMFeedbacks feedback in feedbacks)
+    foreach (MMFeedback feedback in feedbacks)
     {
       m_FeedbacksHash.Add(feedback.gameObject.name, feedback);
     }
@@ -225,7 +230,7 @@ public class Hoverboard : MonoBehaviour
     var normal = collision.contacts[0].normal;
     if (normal.y < 1f && m_RigidBody.angularVelocity.magnitude > m_StaggerFeedbackThreshold)
     {
-      m_FeedbacksHash["StaggerFeedback"].PlayFeedbacks();
+      m_StaggerFeedback.PlayFeedbacks();
     }
   }
 

@@ -163,8 +163,9 @@ GameObject:
   - component: {fileID: 438161644}
   - component: {fileID: 438161645}
   - component: {fileID: 438161646}
+  - component: {fileID: 438161647}
   m_Layer: 0
-  m_Name: CollisionFeedback
+  m_Name: StaggerFeedback
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -198,6 +199,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Feedbacks:
   - {fileID: 438161646}
+  - {fileID: 438161647}
   InitializationMode: 2
   DebugActive: 0
 --- !u!114 &438161646
@@ -224,6 +226,32 @@ MonoBehaviour:
   BoundAnimator: {fileID: 1918245594066882042}
   TriggerParameterName: stagger
   BoolParameterName: 
+--- !u!114 &438161647
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 438161643}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bce85594d78e41442a7bfb6ed40e10a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Active: 1
+  Label: Instantiate Object
+  Timing:
+    InitialDelay: 0
+    CooldownDuration: 0
+    NumberOfRepeats: 0
+    RepeatForever: 0
+    DelayBetweenRepeats: 1
+  DebugActive: 0
+  VfxToInstantiate: {fileID: 1750940742320366, guid: ec1383a81f8b26e41bd5795fba065567,
+    type: 3}
+  VfxPositionOffset: {x: 0, y: 0, z: 0}
+  VfxCreateObjectPool: 0
+  VfxObjectPoolSize: 5
 --- !u!1 &663044699
 GameObject:
   m_ObjectHideFlags: 0
@@ -400,8 +428,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Mass: 100
-  m_Drag: 1
-  m_AngularDrag: 2
+  m_Drag: 0.8
+  m_AngularDrag: 1.5
   m_AngularVelocityDampenPercentageOnCollisions: 0.7
   m_InitialSpeed: 15
   m_MaxSpeed: 30
@@ -427,17 +455,18 @@ MonoBehaviour:
   m_HoverDamp: 10
   m_GroundCheckRayDistance: 3
   m_MinFOV: 50
-  m_MaxFOV: 90
+  m_MaxFOV: 80
   m_FOVZoomInAdjustmentSpeed: 4
   m_FOVZoomOutAdjustmentSpeed: 7
   m_FOVSwitchThreshold: 0
-  m_CollisionFeedbackThreshold: 0.6
+  m_StaggerFeedbackThreshold: 0.6
   m_RigidBody: {fileID: 0}
   m_GroundLayerMask:
     serializedVersion: 2
     m_Bits: 256
-  m_CollisionFeedback: {fileID: 438161645}
+  m_StaggerFeedback: {fileID: 438161645}
   m_TurnFeedback: {fileID: 2105313264}
+  m_AccelerationFeedback: {fileID: 1947828923}
   m_IsGrounded: 0
 --- !u!1 &1580541512
 GameObject:
@@ -544,6 +573,7 @@ Transform:
   m_Children:
   - {fileID: 438161644}
   - {fileID: 2105313262}
+  - {fileID: 1947828921}
   m_Father: {fileID: 5006512736063246122}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -641,6 +671,79 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1947828920
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1947828921}
+  - component: {fileID: 1947828923}
+  - component: {fileID: 1947828922}
+  m_Layer: 0
+  m_Name: AccelerationFeedback
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1947828921
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1947828920}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1702567059}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1947828922
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1947828920}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bce85594d78e41442a7bfb6ed40e10a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Active: 1
+  Label: Instantiate Object
+  Timing:
+    InitialDelay: 0
+    CooldownDuration: 0
+    NumberOfRepeats: 0
+    RepeatForever: 0
+    DelayBetweenRepeats: 1
+  DebugActive: 0
+  VfxToInstantiate: {fileID: 100000, guid: 83cd9cc9f9c88824ba18dc59b05ae328, type: 3}
+  VfxPositionOffset: {x: 0, y: 0, z: 0}
+  VfxCreateObjectPool: 0
+  VfxObjectPoolSize: 5
+--- !u!114 &1947828923
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1947828920}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 841b72de2996c5c40bfb394f3d0e0a98, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Feedbacks:
+  - {fileID: 1947828922}
+  InitializationMode: 2
+  DebugActive: 0
 --- !u!4 &2025221225 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 4e11ef4f39bc65e44a4b0755ecac6ea1,
@@ -1780,7 +1883,7 @@ MonoBehaviour:
   m_LookAt: {fileID: 5006512736063246122}
   m_Follow: {fileID: 5006512736063246122}
   m_Lens:
-    FieldOfView: 50.01727
+    FieldOfView: 69.81695
     OrthographicSize: 10
     NearClipPlane: 0.1
     FarClipPlane: 5000
@@ -1882,7 +1985,7 @@ Camera:
     height: 1
   near clip plane: 0.1
   far clip plane: 5000
-  field of view: 50.01727
+  field of view: 69.81695
   orthographic: 0
   orthographic size: 10
   m_Depth: -1
