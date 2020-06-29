@@ -468,6 +468,7 @@ MonoBehaviour:
   m_Deceleration: 5
   m_AutoStabilizeStability: 0.3
   m_AutoStabilizeSpeed: 2
+  m_JumpForce: 2000
   m_InitialAdditionalGravity: 5
   m_MaxAdditionalGravity: 99
   m_GravityAcceleration: 2
@@ -1988,7 +1989,7 @@ MonoBehaviour:
   m_LookAt: {fileID: 5006512736063246122}
   m_Follow: {fileID: 5006512736063246122}
   m_Lens:
-    FieldOfView: 50.24344
+    FieldOfView: 50.00003
     OrthographicSize: 10
     NearClipPlane: 0.1
     FarClipPlane: 5000
@@ -2090,7 +2091,7 @@ Camera:
     height: 1
   near clip plane: 0.1
   far clip plane: 5000
-  field of view: 50.24344
+  field of view: 50.00003
   orthographic: 0
   orthographic size: 10
   m_Depth: -1

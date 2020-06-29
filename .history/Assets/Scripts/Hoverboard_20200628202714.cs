@@ -18,7 +18,6 @@ public class Hoverboard : MonoBehaviour
   public float m_Deceleration = 1f;
   public float m_AutoStabilizeStability = 1f;
   public float m_AutoStabilizeSpeed = 2f;
-  public float m_JumpForce = 10f;
   // additional gravity without having to adjust mass 
   // or world gravity
   public float m_InitialAdditionalGravity = 1f;
@@ -134,7 +133,7 @@ public class Hoverboard : MonoBehaviour
 
   public void Jump()
   {
-    m_RigidBody.AddForce(m_JumpForce * Vector3.up, ForceMode.Impulse);
+    m_RigidBody.AddForceAtPosition(m_JumpForce * Vector3.up, ForceMode.Impulse);
   }
 
   private void DampenAngularVelocity()

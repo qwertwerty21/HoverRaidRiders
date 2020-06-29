@@ -12,14 +12,6 @@ public class PlayerHoverboardController : MonoBehaviour
   }
 
   // Update is called once per frame
-  void Update()
-  {
-    if (CrossPlatformInputManager.GetButtonDown("Jump"))
-    {
-      print("jump");
-      m_Hoverboard.Jump();
-    }
-  }
   void FixedUpdate()
   {
     float vertical = CrossPlatformInputManager.GetAxis("Vertical");
@@ -27,6 +19,10 @@ public class PlayerHoverboardController : MonoBehaviour
 
     m_Hoverboard.Move(horizontal, vertical);
 
-
+    if (CrossPlatformInputManager.GetButtonDown("Jump"))
+    {
+      print("jump");
+      m_Hoverboard.Jump();
+    }
   }
 }

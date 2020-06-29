@@ -134,7 +134,7 @@ public class Hoverboard : MonoBehaviour
 
   public void Jump()
   {
-    m_RigidBody.AddForce(m_JumpForce * Vector3.up, ForceMode.Impulse);
+    m_RigidBody.AddForceAtPosition(m_JumpForce * Vector3.up, m_HoverboardGroundCheckPoint.transform.position, ForceMode.Impulse);
   }
 
   private void DampenAngularVelocity()
