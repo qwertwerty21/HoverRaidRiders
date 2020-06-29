@@ -54,7 +54,6 @@ public class Hoverboard : MonoBehaviour
   [Range(0f, 1f)]
   public float m_FOVSwitchThreshold = .9f;
   public float m_StaggerFeedbackThreshold = .6f;
-  public float m_CameraSpeedLineThreshold = .9f;
   public Rigidbody m_RigidBody;
   public LayerMask m_GroundLayerMask; // could be unnecessary
   public MMFeedbacks m_StaggerFeedback;
@@ -112,9 +111,8 @@ public class Hoverboard : MonoBehaviour
     m_Rider.m_Animator.SetFloat("vertical", vertical);
     m_Rider.m_Animator.SetFloat("horizontal", horizontal);
 
-    float currentSpeedPercentage = m_RigidBody.velocity.magnitude / m_MaxSpeed;
-
     // adjust field of view according to speed
+    float currentSpeedPercentage = m_RigidBody.velocity.magnitude / m_MaxSpeed;
     float targetFOV = m_MinFOV;
     float fovAdjustmentSpeed = m_FOVZoomInAdjustmentSpeed;
     if (currentSpeedPercentage > m_FOVSwitchThreshold)
@@ -123,12 +121,6 @@ public class Hoverboard : MonoBehaviour
       fovAdjustmentSpeed = m_FOVZoomOutAdjustmentSpeed;
     }
     GameManager.Instance.SetFieldOfView(targetFOV, fovAdjustmentSpeed);
-
-    // play speedfeedback if appropriate
-    if (currentSpeedPercentage > m_CameraSpeedLineThreshold)
-    {
-      GameManager.Instance.PlayCameraFeedback("SpeedFeedback");
-    }
 
   }
 

@@ -54,7 +54,6 @@ public class Hoverboard : MonoBehaviour
   [Range(0f, 1f)]
   public float m_FOVSwitchThreshold = .9f;
   public float m_StaggerFeedbackThreshold = .6f;
-  public float m_CameraSpeedLineThreshold = .9f;
   public Rigidbody m_RigidBody;
   public LayerMask m_GroundLayerMask; // could be unnecessary
   public MMFeedbacks m_StaggerFeedback;

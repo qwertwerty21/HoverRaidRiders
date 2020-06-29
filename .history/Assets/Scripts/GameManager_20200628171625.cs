@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityStandardAssets.CrossPlatformInput;
 using Cinemachine;
-using MoreMountains.Feedbacks;
-
 
 public class GameManager : MonoBehaviour
 {
@@ -19,10 +17,10 @@ public class GameManager : MonoBehaviour
     m_CinemachineVirtualCamera = Camera.main.GetComponent<CinemachineVirtualCamera>();
 
     // add all feedbacks to hash for easy access
-    MMFeedbacks[] feedbacks = Camera.main.GetComponentsInChildren<MMFeedbacks>();
+    MMFeedbacks[] feedbacks = GetComponentsInChildren<MMFeedbacks>();
     foreach (MMFeedbacks feedback in feedbacks)
     {
-      m_CameraFeedbacksHash.Add(feedback.gameObject.name, feedback);
+      m_FeedbacksHash.Add(feedback.gameObject.name, feedback);
     }
   }
 
@@ -30,10 +28,5 @@ public class GameManager : MonoBehaviour
   {
     float currentFOV = m_CinemachineVirtualCamera.m_Lens.FieldOfView;
     m_CinemachineVirtualCamera.m_Lens.FieldOfView = Mathf.SmoothStep(currentFOV, newFOV, Time.deltaTime * fovAdjustmentSpeed);
-  }
-
-  public void PlayCameraFeedback(string name)
-  {
-    m_CameraFeedbacksHash[name].PlayFeedbacks();
   }
 }

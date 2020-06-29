@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour
     MMFeedbacks[] feedbacks = Camera.main.GetComponentsInChildren<MMFeedbacks>();
     foreach (MMFeedbacks feedback in feedbacks)
     {
-      m_CameraFeedbacksHash.Add(feedback.gameObject.name, feedback);
+      m_FeedbacksHash.Add(feedback.gameObject.name, feedback);
     }
   }
 

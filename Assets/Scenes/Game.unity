@@ -252,6 +252,37 @@ MonoBehaviour:
   VfxPositionOffset: {x: 0, y: 0, z: 0}
   VfxCreateObjectPool: 0
   VfxObjectPoolSize: 5
+--- !u!1 &624788149
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 624788150}
+  m_Layer: 0
+  m_Name: Feedbacks
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &624788150
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 624788149}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1568424236}
+  m_Father: {fileID: 3561869271518852267}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &663044699
 GameObject:
   m_ObjectHideFlags: 0
@@ -460,6 +491,7 @@ MonoBehaviour:
   m_FOVZoomOutAdjustmentSpeed: 7
   m_FOVSwitchThreshold: 0
   m_StaggerFeedbackThreshold: 0.6
+  m_CameraSpeedLineThreshold: 0.9
   m_RigidBody: {fileID: 0}
   m_GroundLayerMask:
     serializedVersion: 2
@@ -468,6 +500,79 @@ MonoBehaviour:
   m_TurnFeedback: {fileID: 2105313264}
   m_AccelerationFeedback: {fileID: 1947828923}
   m_IsGrounded: 0
+--- !u!1 &1568424235
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1568424236}
+  - component: {fileID: 1568424238}
+  - component: {fileID: 1568424237}
+  m_Layer: 0
+  m_Name: SpeedFeedback
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1568424236
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1568424235}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 624788150}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1568424237
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1568424235}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cdfe4b9b079619143a9748eeee75e698, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Active: 1
+  Label: Particles Instantiation
+  Timing:
+    InitialDelay: 0
+    CooldownDuration: 0
+    NumberOfRepeats: 0
+    RepeatForever: 0
+    DelayBetweenRepeats: 1
+  DebugActive: 0
+  ParticlesPrefab: {fileID: 8529098494383185356, guid: e204d2c0bb047456595507dbb08fff50,
+    type: 3}
+  InstantiateParticlesPosition: {fileID: 3561869271518852267}
+  NestParticles: 1
+--- !u!114 &1568424238
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1568424235}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 841b72de2996c5c40bfb394f3d0e0a98, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Feedbacks:
+  - {fileID: 1568424237}
+  InitializationMode: 2
+  DebugActive: 0
 --- !u!1 &1580541512
 GameObject:
   m_ObjectHideFlags: 0
@@ -1883,7 +1988,7 @@ MonoBehaviour:
   m_LookAt: {fileID: 5006512736063246122}
   m_Follow: {fileID: 5006512736063246122}
   m_Lens:
-    FieldOfView: 69.81695
+    FieldOfView: 50.24344
     OrthographicSize: 10
     NearClipPlane: 0.1
     FarClipPlane: 5000
@@ -1985,7 +2090,7 @@ Camera:
     height: 1
   near clip plane: 0.1
   far clip plane: 5000
-  field of view: 69.81695
+  field of view: 50.24344
   orthographic: 0
   orthographic size: 10
   m_Depth: -1
@@ -2015,6 +2120,7 @@ Transform:
   m_LocalScale: {x: 0.50021183, y: 0.49981996, z: 0.50014824}
   m_Children:
   - {fileID: 3561869272216358068}
+  - {fileID: 624788150}
   m_Father: {fileID: 2096470056}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
