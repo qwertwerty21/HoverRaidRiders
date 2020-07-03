@@ -121,6 +121,105 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &275097584
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 275097585}
+  - component: {fileID: 275097588}
+  - component: {fileID: 275097587}
+  - component: {fileID: 275097586}
+  m_Layer: 0
+  m_Name: JumpFeedback
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &275097585
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 275097584}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1702567059}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &275097586
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 275097584}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bce85594d78e41442a7bfb6ed40e10a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Active: 1
+  Label: Instantiate Object
+  Timing:
+    InitialDelay: 0
+    CooldownDuration: 0
+    NumberOfRepeats: 0
+    RepeatForever: 0
+    DelayBetweenRepeats: 1
+  DebugActive: 0
+  VfxToInstantiate: {fileID: 100018, guid: a40b64bf23366dc42a892af2c6ff6140, type: 3}
+  VfxPositionOffset: {x: 0, y: 1, z: 0}
+  VfxCreateObjectPool: 0
+  VfxObjectPoolSize: 5
+--- !u!114 &275097587
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 275097584}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1c6a190d064b7642bc4c5b64bbcd3c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Active: 0
+  Label: Animation
+  Timing:
+    InitialDelay: 0
+    CooldownDuration: 0
+    NumberOfRepeats: 0
+    RepeatForever: 0
+    DelayBetweenRepeats: 1
+  DebugActive: 0
+  BoundAnimator: {fileID: 1918245594066882042}
+  TriggerParameterName: stagger
+  BoolParameterName: 
+--- !u!114 &275097588
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 275097584}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 841b72de2996c5c40bfb394f3d0e0a98, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Feedbacks:
+  - {fileID: 275097587}
+  - {fileID: 275097586}
+  InitializationMode: 2
+  DebugActive: 0
 --- !u!1 &352071888
 GameObject:
   m_ObjectHideFlags: 0
@@ -680,6 +779,7 @@ Transform:
   - {fileID: 438161644}
   - {fileID: 2105313262}
   - {fileID: 1947828921}
+  - {fileID: 275097585}
   m_Father: {fileID: 5006512736063246122}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -830,7 +930,7 @@ MonoBehaviour:
     RepeatForever: 0
     DelayBetweenRepeats: 1
   DebugActive: 0
-  VfxToInstantiate: {fileID: 100000, guid: 83cd9cc9f9c88824ba18dc59b05ae328, type: 3}
+  VfxToInstantiate: {fileID: 100000, guid: 6375ee8ee71fd4e968ff82badba4c727, type: 3}
   VfxPositionOffset: {x: 0, y: 0, z: 0}
   VfxCreateObjectPool: 0
   VfxObjectPoolSize: 5
@@ -1989,7 +2089,7 @@ MonoBehaviour:
   m_LookAt: {fileID: 5006512736063246122}
   m_Follow: {fileID: 5006512736063246122}
   m_Lens:
-    FieldOfView: 50.00003
+    FieldOfView: 50.93303
     OrthographicSize: 10
     NearClipPlane: 0.1
     FarClipPlane: 5000
@@ -2091,7 +2191,7 @@ Camera:
     height: 1
   near clip plane: 0.1
   far clip plane: 5000
-  field of view: 50.00003
+  field of view: 50.93303
   orthographic: 0
   orthographic size: 10
   m_Depth: -1
@@ -2116,7 +2216,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3561869271518852264}
-  m_LocalRotation: {x: -0.020514946, y: 1.08570045e-11, z: 5.291127e-10, w: 0.9997896}
+  m_LocalRotation: {x: 0.01905123, y: 0.000000017159646, z: 2.0190577e-10, w: 0.99981856}
   m_LocalPosition: {x: -0.25573257, y: -0.15415382, z: -3.155893}
   m_LocalScale: {x: 0.50021183, y: 0.49981996, z: 0.50014824}
   m_Children:
@@ -2204,7 +2304,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4044717213e31446939f7bd49c896ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_TrackedObjectOffset: {x: 0, y: 1.39, z: 0}
+  m_TrackedObjectOffset: {x: 0, y: 1.12, z: 0}
   m_LookaheadTime: 0
   m_LookaheadSmoothing: 3
   m_LookaheadIgnoreY: 0

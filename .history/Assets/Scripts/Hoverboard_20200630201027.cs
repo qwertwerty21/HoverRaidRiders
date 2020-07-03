@@ -135,7 +135,6 @@ public class Hoverboard : MonoBehaviour
   public void Jump()
   {
     m_RigidBody.AddForce(m_JumpForce * Vector3.up, ForceMode.Impulse);
-    m_FeedbacksHash["JumpFeedback"].PlayFeedbacks();
   }
 
   private void DampenAngularVelocity()
@@ -202,8 +201,6 @@ public class Hoverboard : MonoBehaviour
         // todo
         // mmfeedbacks juice
         // jump juice and animation
-        // limit jump count and do jump animation
-        // cursor
         // shoot 
         // sword
         // animations for character
@@ -211,7 +208,6 @@ public class Hoverboard : MonoBehaviour
         // drift sparks and boost
         // wall run 
         // rail grind
-        // object pool all prefabs
 
         m_RigidBody.AddForceAtPosition(lift * Vector3.up, point.transform.position, ForceMode.Acceleration);
       }

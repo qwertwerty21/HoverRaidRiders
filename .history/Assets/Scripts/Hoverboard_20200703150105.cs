@@ -211,7 +211,6 @@ public class Hoverboard : MonoBehaviour
         // drift sparks and boost
         // wall run 
         // rail grind
-        // object pool all prefabs
 
         m_RigidBody.AddForceAtPosition(lift * Vector3.up, point.transform.position, ForceMode.Acceleration);
       }

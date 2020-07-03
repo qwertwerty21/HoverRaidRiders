@@ -202,8 +202,6 @@ public class Hoverboard : MonoBehaviour
         // todo
         // mmfeedbacks juice
         // jump juice and animation
-        // limit jump count and do jump animation
-        // cursor
         // shoot 
         // sword
         // animations for character
@@ -211,7 +209,6 @@ public class Hoverboard : MonoBehaviour
         // drift sparks and boost
         // wall run 
         // rail grind
-        // object pool all prefabs
 
         m_RigidBody.AddForceAtPosition(lift * Vector3.up, point.transform.position, ForceMode.Acceleration);
       }
