@@ -58,13 +58,10 @@ public class Hoverboard : MonoBehaviour
   public float m_CameraSpeedLineThreshold = .9f;
   public Rigidbody m_RigidBody;
   public LayerMask m_GroundLayerMask; // could be unnecessary
-  public MMFeedbacks m_StaggerFeedback;
-  public MMFeedbacks m_TurnFeedback;
-  public MMFeedbacks m_AccelerationFeedback;
   private Dictionary<string, MMFeedbacks> m_FeedbacksHash = new Dictionary<string, MMFeedbacks>();
-
   private Rider m_Rider;
   public bool m_IsGrounded = false;
+  public bool m_IsJumping = false;
   private float m_CurrentSpeed;
   private float m_CurrentAdditionalGravity;
   private GameObject[] m_HoverboardPoints;
@@ -134,8 +131,12 @@ public class Hoverboard : MonoBehaviour
 
   public void Jump()
   {
-    m_RigidBody.AddForce(m_JumpForce * Vector3.up, ForceMode.Impulse);
-    m_FeedbacksHash["JumpFeedback"].PlayFeedbacks();
+    if (m_IsGrounded)
+    {
+      m_IsJumping = true;
+      m_RigidBody.AddForce(m_JumpForce * Vector3.up, ForceMode.Impulse);
+      m_FeedbacksHash["JumpFeedback"].PlayFeedbacks();
+    }
   }
 
   private void DampenAngularVelocity()
@@ -172,7 +173,6 @@ public class Hoverboard : MonoBehaviour
     m_CurrentSpeed = m_InitialSpeed;
   }
 
-  // Update is called once per frame
   private void FixedUpdate()
   {
     m_RigidBody.angularDrag = m_AngularDrag;
@@ -225,14 +225,19 @@ public class Hoverboard : MonoBehaviour
     if (Physics.Raycast(groundCheckDownRay, out groundCheckHit, m_GroundCheckRayDistance, m_GroundLayerMask))
     {
       m_IsGrounded = true;
+
+      // reset gravity and jump count
       m_CurrentAdditionalGravity = m_InitialAdditionalGravity;
+      m_IsJumping = false;
     }
     else
     {
       m_IsGrounded = false;
       m_CurrentAdditionalGravity = Mathf.SmoothStep(m_CurrentAdditionalGravity, m_MaxAdditionalGravity, Time.deltaTime * m_GravityAcceleration);
     }
-
+    // set animator params (should this be a function inside Rider?)
+    // do you even need this?
+    m_Rider.m_Animator.SetBool("isGrounded", m_IsGrounded);
   }
 
   void OnCollisionEnter(Collision collision)

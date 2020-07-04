@@ -191,7 +191,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1c6a190d064b7642bc4c5b64bbcd3c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Active: 0
+  Active: 1
   Label: Animation
   Timing:
     InitialDelay: 0
@@ -201,7 +201,7 @@ MonoBehaviour:
     DelayBetweenRepeats: 1
   DebugActive: 0
   BoundAnimator: {fileID: 1918245594066882042}
-  TriggerParameterName: stagger
+  TriggerParameterName: jump
   BoolParameterName: 
 --- !u!114 &275097588
 MonoBehaviour:
@@ -596,10 +596,8 @@ MonoBehaviour:
   m_GroundLayerMask:
     serializedVersion: 2
     m_Bits: 256
-  m_StaggerFeedback: {fileID: 438161645}
-  m_TurnFeedback: {fileID: 2105313264}
-  m_AccelerationFeedback: {fileID: 1947828923}
   m_IsGrounded: 0
+  m_IsJumping: 0
 --- !u!1 &1568424235
 GameObject:
   m_ObjectHideFlags: 0
@@ -2089,7 +2087,7 @@ MonoBehaviour:
   m_LookAt: {fileID: 5006512736063246122}
   m_Follow: {fileID: 5006512736063246122}
   m_Lens:
-    FieldOfView: 50.93303
+    FieldOfView: 50.00491
     OrthographicSize: 10
     NearClipPlane: 0.1
     FarClipPlane: 5000
@@ -2191,7 +2189,7 @@ Camera:
     height: 1
   near clip plane: 0.1
   far clip plane: 5000
-  field of view: 50.93303
+  field of view: 50.00491
   orthographic: 0
   orthographic size: 10
   m_Depth: -1
@@ -2216,7 +2214,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3561869271518852264}
-  m_LocalRotation: {x: 0.01905123, y: 0.000000017159646, z: 2.0190577e-10, w: 0.99981856}
+  m_LocalRotation: {x: 0.01905123, y: 0.000000017159643, z: 2.0190993e-10, w: 0.99981856}
   m_LocalPosition: {x: -0.25573257, y: -0.15415382, z: -3.155893}
   m_LocalScale: {x: 0.50021183, y: 0.49981996, z: 0.50014824}
   m_Children:
