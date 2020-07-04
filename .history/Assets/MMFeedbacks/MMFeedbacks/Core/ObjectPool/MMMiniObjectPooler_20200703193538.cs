@@ -11,7 +11,7 @@ namespace MoreMountains.Feedbacks
     /// the number of objects we'll add to the pool
     public int PoolSize = 20;
     /// if true, the pool will automatically add objects to the itself if needed
-    public bool PoolCanExpand = true;
+    public bool PoolCanExpand = false;
 
     /// if this is true, the pool will try not to create a new waiting pool if it finds one with the same name.
     public bool MutualizeWaitingPools = false;

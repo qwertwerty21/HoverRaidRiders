@@ -141,6 +141,7 @@ namespace MoreMountains.Feedbacks
         return null;
       }
       GameObject newGameObject = (GameObject)Instantiate(GameObjectToPool);
+      // newGameObject.AddComponent<MMMiniPoolableObject>();
       newGameObject.gameObject.SetActive(false);
       if (NestWaitingPool)
       {

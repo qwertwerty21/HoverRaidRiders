@@ -177,7 +177,7 @@ MonoBehaviour:
   DebugActive: 0
   VfxToInstantiate: {fileID: 100018, guid: a40b64bf23366dc42a892af2c6ff6140, type: 3}
   VfxPositionOffset: {x: 0, y: 1, z: 0}
-  VfxCreateObjectPool: 0
+  VfxCreateObjectPool: 1
   VfxObjectPoolSize: 5
 --- !u!114 &275097587
 MonoBehaviour:
@@ -282,7 +282,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1702567059}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &438161645
 MonoBehaviour:
@@ -349,7 +349,7 @@ MonoBehaviour:
   VfxToInstantiate: {fileID: 1750940742320366, guid: ec1383a81f8b26e41bd5795fba065567,
     type: 3}
   VfxPositionOffset: {x: 0, y: 0, z: 0}
-  VfxCreateObjectPool: 0
+  VfxCreateObjectPool: 1
   VfxObjectPoolSize: 5
 --- !u!1 &624788149
 GameObject:
@@ -567,7 +567,7 @@ MonoBehaviour:
   m_Deceleration: 5
   m_AutoStabilizeStability: 0.3
   m_AutoStabilizeSpeed: 2
-  m_JumpForce: 2000
+  m_JumpForce: 1000
   m_InitialAdditionalGravity: 5
   m_MaxAdditionalGravity: 99
   m_GravityAcceleration: 2
@@ -774,9 +774,9 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 1947828921}
   - {fileID: 438161644}
   - {fileID: 2105313262}
-  - {fileID: 1947828921}
   - {fileID: 275097585}
   m_Father: {fileID: 5006512736063246122}
   m_RootOrder: 7
@@ -905,7 +905,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1702567059}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1947828922
 MonoBehaviour:
@@ -923,15 +923,15 @@ MonoBehaviour:
   Label: Instantiate Object
   Timing:
     InitialDelay: 0
-    CooldownDuration: 0
+    CooldownDuration: 0.05
     NumberOfRepeats: 0
     RepeatForever: 0
     DelayBetweenRepeats: 1
   DebugActive: 0
   VfxToInstantiate: {fileID: 100000, guid: 6375ee8ee71fd4e968ff82badba4c727, type: 3}
   VfxPositionOffset: {x: 0, y: 0, z: 0}
-  VfxCreateObjectPool: 0
-  VfxObjectPoolSize: 5
+  VfxCreateObjectPool: 1
+  VfxObjectPoolSize: 20
 --- !u!114 &1947828923
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1014,7 +1014,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1702567059}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2105313264
 MonoBehaviour:
@@ -2087,7 +2087,7 @@ MonoBehaviour:
   m_LookAt: {fileID: 5006512736063246122}
   m_Follow: {fileID: 5006512736063246122}
   m_Lens:
-    FieldOfView: 50.00491
+    FieldOfView: 50.05191
     OrthographicSize: 10
     NearClipPlane: 0.1
     FarClipPlane: 5000
@@ -2189,7 +2189,7 @@ Camera:
     height: 1
   near clip plane: 0.1
   far clip plane: 5000
-  field of view: 50.00491
+  field of view: 50.05191
   orthographic: 0
   orthographic size: 10
   m_Depth: -1
