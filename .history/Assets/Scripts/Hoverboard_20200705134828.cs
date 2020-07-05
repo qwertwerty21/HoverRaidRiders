@@ -60,8 +60,7 @@ namespace HoverRaidRiders
     public Rigidbody m_RigidBody;
     public LayerMask m_GroundLayerMask; // could be unnecessary
     private Dictionary<string, MMFeedbacks> m_FeedbacksHash = new Dictionary<string, MMFeedbacks>();
-    private GameObject m_RiderGameObject; // maybe we can delete later
-    private Rider m_Rider;
+    private GameObject m_RiderGameObject;
     public bool m_IsGrounded = false;
     public bool m_IsJumping = false;
     private float m_CurrentSpeed;
@@ -109,8 +108,8 @@ namespace HoverRaidRiders
       m_RigidBody.AddForce(worldOpposingForce, ForceMode.Impulse);
 
       // set animator params (should this be a function inside Rider?)
-      m_Rider.m_Animator.SetFloat("vertical", vertical);
-      m_Rider.m_Animator.SetFloat("horizontal", horizontal);
+      m_RiderGameObject.m_Animator.SetFloat("vertical", vertical);
+      m_RiderGameObject.m_Animator.SetFloat("horizontal", horizontal);
 
       float currentSpeedPercentage = m_RigidBody.velocity.magnitude / m_MaxSpeed;
 
@@ -162,7 +161,6 @@ namespace HoverRaidRiders
       }
 
       m_RiderGameObject = GameObject.FindGameObjectWithTag("Rider");
-      m_Rider = m_RiderGameObject.GetComponent<Rider>();
 
       // lower center of mass so we don't flip
       Vector3 centerOfMass = m_RigidBody.centerOfMass;
@@ -238,7 +236,7 @@ namespace HoverRaidRiders
       }
       // set animator params (should this be a function inside Rider?)
       // do you even need this?
-      m_Rider.m_Animator.SetBool("isGrounded", m_IsGrounded);
+      m_RiderGameObject.m_Animator.SetBool("isGrounded", m_IsGrounded);
     }
 
     void OnCollisionEnter(Collision collision)

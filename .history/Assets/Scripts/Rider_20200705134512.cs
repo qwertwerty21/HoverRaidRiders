@@ -9,6 +9,7 @@ namespace HoverRaidRiders
   {
     public Animator m_Animator;
     public Crosshair m_Crosshair;
+
     private GameObject m_HoverboardGameObject;
     void Awake()
     {

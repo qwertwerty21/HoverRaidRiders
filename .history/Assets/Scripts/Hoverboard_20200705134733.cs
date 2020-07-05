@@ -60,7 +60,6 @@ namespace HoverRaidRiders
     public Rigidbody m_RigidBody;
     public LayerMask m_GroundLayerMask; // could be unnecessary
     private Dictionary<string, MMFeedbacks> m_FeedbacksHash = new Dictionary<string, MMFeedbacks>();
-    private GameObject m_RiderGameObject; // maybe we can delete later
     private Rider m_Rider;
     public bool m_IsGrounded = false;
     public bool m_IsJumping = false;
@@ -161,8 +160,7 @@ namespace HoverRaidRiders
         m_FeedbacksHash.Add(feedback.gameObject.name, feedback);
       }
 
-      m_RiderGameObject = GameObject.FindGameObjectWithTag("Rider");
-      m_Rider = m_RiderGameObject.GetComponent<Rider>();
+      m_Rider = GameObject.FindGameObjectWithTag("Rider");
 
       // lower center of mass so we don't flip
       Vector3 centerOfMass = m_RigidBody.centerOfMass;

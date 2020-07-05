@@ -5,15 +5,17 @@ using UnityStandardAssets.CrossPlatformInput;
 
 namespace HoverRaidRiders
 {
-  public class PlayerHoverboardController : MonoBehaviour
+  public class PlayerHoverboardRiderController : MonoBehaviour
   {
     private Hoverboard m_Hoverboard;
+    private GameObject m_RiderGameObject;
     private Rider m_Rider;
+
     void Awake()
     {
       m_Hoverboard = GetComponent<Hoverboard>();
-      m_Rider = GetComponentInChildren<Rider>();
-
+      m_RiderGameObject = GameObject.FindGameObjectWithTag("Rider");
+      m_Rider = m_RiderGameObject.GetComponent<Rider>();
     }
 
     // Update is called once per frame

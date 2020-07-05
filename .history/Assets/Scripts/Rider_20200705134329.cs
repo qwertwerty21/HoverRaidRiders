@@ -9,13 +9,11 @@ namespace HoverRaidRiders
   {
     public Animator m_Animator;
     public Crosshair m_Crosshair;
-    private GameObject m_HoverboardGameObject;
     void Awake()
     {
       m_Animator = GetComponent<Animator>();
       m_Crosshair = GetComponent<Crosshair>();
-      m_HoverboardGameObject = GameObject.FindGameObjectWithTag("Hoverboard");
-      transform.parent = m_HoverboardGameObject.transform;
+      transform.parent = GameObject.FindGameObjectWithTag("Hoverboard");
     }
 
     public void Aim(Vector3 targetPoint)
