@@ -17,7 +17,7 @@ namespace HoverRaidRiders
 
     public void Aim(Vector3 targetPoint)
     {
-      print("Aim targetPoint " + targetPoint);
+      print("Aim targetPoint " + targetPoint.x);
       m_Crosshair.m_CrosshairRectTransform.anchoredPosition3D = targetPoint;
     }
 

@@ -12,6 +12,8 @@ TagManager:
   - HoverboardWheelColliderFrontRight
   - HoverboardWheelColliderBackLeft
   - HoverboardWheelColliderBackRight
+  - FxTemporaire
+  - Crosshair
   layers:
   - Default
   - TransparentFX

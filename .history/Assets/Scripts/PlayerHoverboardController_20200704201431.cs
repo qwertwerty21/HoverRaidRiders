@@ -24,8 +24,7 @@ namespace HoverRaidRiders
         print("jump");
         m_Hoverboard.Jump();
       }
-      m_Rider.Aim(Input.mousePosition);
-      print("Mouse " + Input.mousePosition);
+      m_Rider.Aim(GameManager.Instance.MainCamera.ScreenToWorldPoint(Input.mousePosition));
     }
     void FixedUpdate()
     {

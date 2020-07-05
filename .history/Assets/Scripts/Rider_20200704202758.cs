@@ -18,7 +18,7 @@ namespace HoverRaidRiders
     public void Aim(Vector3 targetPoint)
     {
       print("Aim targetPoint " + targetPoint);
-      m_Crosshair.m_CrosshairRectTransform.anchoredPosition3D = targetPoint;
+      m_Crosshair.m_CrosshairRectTransform.anchoredPosition = new Vector2(targetPoint.x, targetPoint.y);
     }
 
     // Update is called once per frame
