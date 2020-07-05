@@ -35,6 +35,8 @@ namespace HoverRaidRiders
       float horizontal = CrossPlatformInputManager.GetAxis("Horizontal");
 
       m_Hoverboard.Move(horizontal, vertical);
+
+
     }
   }
 }

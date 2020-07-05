@@ -21,13 +21,12 @@ namespace HoverRaidRiders
     public void Aim(Vector3 targetPoint)
     {
       print("Aim targetPoint " + targetPoint);
-
       // clamp targetPoint by screen width and height
-      Vector3 clampedTargetPoint = targetPoint;
-      clampedTargetPoint.x = Mathf.Clamp(clampedTargetPoint.x, 0f, Screen.width);
-      clampedTargetPoint.y = Mathf.Clamp(clampedTargetPoint.y, 0f, Screen.height);
+      Vector3 finalTargetPoint = targetPoint;
+      finalTargetPoint.x = Mathf.Clamp(finalTargetPoint.x, Screen.width, -Screen.width);
+      finalTargetPoint.y = Mathf.Clamp(finalTargetPoint.y, Screen.height, -Screen.height);
 
-      m_Crosshair.m_CrosshairRectTransform.anchoredPosition3D = clampedTargetPoint;
+      m_Crosshair.m_CrosshairRectTransform.anchoredPosition3D = finalTargetPoint;
     }
 
     // Update is called once per frame
