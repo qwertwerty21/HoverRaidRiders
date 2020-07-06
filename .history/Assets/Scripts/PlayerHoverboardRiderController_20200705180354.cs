@@ -26,9 +26,7 @@ namespace HoverRaidRiders
         print("jump");
         m_Hoverboard.Jump();
       }
-
       m_Rider.Aim(Input.mousePosition);
-
       if (Input.GetButton("Fire1"))
       {
         m_Rider.PerformPrimaryWeaponAttack();

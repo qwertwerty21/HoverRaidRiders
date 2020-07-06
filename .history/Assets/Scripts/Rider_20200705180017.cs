@@ -9,10 +9,8 @@ namespace HoverRaidRiders
   {
     public Animator m_Animator;
     public Crosshair m_Crosshair;
-
-    private GameObject[] m_WeaponsGameObjects;
-
-    private Weapon[] m_Weapons;
+    public Weapon m_PrimaryWeapon;
+    public Weapon m_SecondaryWeapon;
 
     private GameObject m_HoverboardGameObject;
     void Awake()
@@ -21,10 +19,6 @@ namespace HoverRaidRiders
       m_Crosshair = GetComponent<Crosshair>();
       m_HoverboardGameObject = GameObject.FindGameObjectWithTag("Hoverboard");
       transform.parent = m_HoverboardGameObject.transform;
-
-      // add all weapons to array
-      m_WeaponsGameObjects = GameObject.FindGameObjectsWithTag("Weapon");
-      m_Weapons = GetComponentsInChildren<Weapon>();
     }
 
     public void Aim(Vector3 targetPoint)
@@ -37,16 +31,6 @@ namespace HoverRaidRiders
       clampedTargetPoint.y = Mathf.Clamp(clampedTargetPoint.y, 0f, Screen.height);
 
       m_Crosshair.m_CrosshairRectTransform.anchoredPosition3D = clampedTargetPoint;
-    }
-
-    public void PerformPrimaryWeaponAttack()
-    {
-      m_Weapons[0].Attack();
-    }
-
-    public void PerformSecondaryWeaponAttack()
-    {
-      m_Weapons[1].Attack();
     }
 
     // Update is called once per frame
